@@ -28,7 +28,7 @@ class RewardSystem:
         # 2. DẤU HIỆU TỐT: Gây ra lỗi SQL
         if status == 500 and self.error_marker in text:
             print(f"[RewardSystem] --- GOOD SIGN (SQL Error): Payload: {payload}")
-            return 50, False  # Thưởng khá, tiếp tục xây dựng payload
+            return 5, False  # Thưởng khá, tiếp tục xây dựng payload
 
         # 3. DẤU HIỆU XẤU: Lỗi server chung
         if status == 500:
