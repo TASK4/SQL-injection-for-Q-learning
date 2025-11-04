@@ -1,0 +1,6 @@
+# Python cache
+__pycache__/
+*.pyc
+
+# Bảng tính CSV (Kết quả trực quan hóa)
+results/target_results/q_table_visual.csv

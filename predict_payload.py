@@ -1,3 +1,4 @@
+import random
 import numpy as np
 import configparser
 from src.agent.q_table import QTable  # Import lớp QTable
@@ -47,10 +48,9 @@ def predict_best_payload(config_path, model_path):
         # Kiểm tra nếu tất cả Q-values đều là 0 (trạng thái chưa được khám phá nhiều)
         if np.all(q_values == 0):
             print(f"Bước {step+1}: Trạng thái '{current_state}' chưa được khám phá nhiều, dừng lại.")
-            break
-
-        # Chọn hành động tốt nhất (có Q-value cao nhất)
-        best_action_index = np.argmax(q_values)
+            best_action_index = random.randint(0, action_space.get_action_space_size() - 1)
+        else:
+            best_action_index = np.argmax(q_values)
         action_string = action_space.get_action_string(best_action_index)
 
         # Cập nhật payload và trạng thái
