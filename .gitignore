@@ -4,3 +4,5 @@ __pycache__/
 
 # Bảng tính CSV (Kết quả trực quan hóa)
 results/target_results/q_table_visual.csv
+# Bỏ qua các file model đã huấn luyện và kết quả
+/results/

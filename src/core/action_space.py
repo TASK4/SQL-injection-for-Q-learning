@@ -10,7 +10,8 @@ class ActionSpace:
             "1=1", "1=0", "--", "NULL", ",", "*",
             "=''",  # Thường dùng để bypass
             "a", "b", # Các ký tự đệm (filler)
-            "admin"
+            "admin",
+            "#"
         ]
         self.num_actions = len(self.actions)
 

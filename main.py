@@ -1,4 +1,5 @@
 import configparser
+from src.environment.training_environment import TrainingEnvironment
 from src.environment.target_environment import TargetEnvironment
 from src.agent.q_learning_agent import QLearningAgent
 from tqdm import tqdm  # Thư viện progress bar cho đẹp
@@ -7,7 +8,7 @@ from tqdm import tqdm  # Thư viện progress bar cho đẹp
 import matplotlib.pyplot as plt
 # ---------------------
 
-def run_training(config_path, model_save_path, model_load_path=None):
+def run_training(config_path, model_save_path, model_load_path=None, env_class=TargetEnvironment):
     
     print(f"Bắt đầu quá trình huấn luyện với config: {config_path}")
     config = configparser.ConfigParser()
@@ -17,7 +18,7 @@ def run_training(config_path, model_save_path, model_load_path=None):
     train_cfg = config['Training']
     
     # 1. Khởi tạo Môi trường (Juice Shop)
-    env = TargetEnvironment(config_path)
+    env = env_class(config_path)
     
     # 2. Khởi tạo Agent (Bộ não Q-Learning)
     agent = QLearningAgent(
@@ -33,7 +34,7 @@ def run_training(config_path, model_save_path, model_load_path=None):
         try:
             print(f"Đang tải model tiền huấn luyện từ: {model_load_path}")
             agent.load_model(model_load_path)
-            agent.epsilon = float(agent_cfg['epsilon_min'])
+            #agent.epsilon = float(agent_cfg['epsilon_min'])
         except FileNotFoundError:
             print(f"Lỗi: Không tìm thấy tệp model. Sẽ huấn luyện từ đầu.")
     
@@ -92,9 +93,17 @@ def run_training(config_path, model_save_path, model_load_path=None):
     # -----------------------------------------
 
 if __name__ == "__main__":
+    CONFIG_FILE = "config/config_training.ini"
+    MODEL_SAVE_PATH = "results/training_results/dvwa_model_v1.json"
+    MODEL_LOAD_PATH = None
+    #CONFIG_FILE = "config/config_target.ini"
+    #MODEL_SAVE_PATH = "results/target_results/juiceshop_model_v1.json"
+    #MODEL_LOAD_PATH = "results/training_results/dvwa_model_v1.json" 
     
-    CONFIG_FILE = "config/config_target.ini"
-    MODEL_SAVE_PATH = "results/target_results/juiceshop_model_v1.json"
-    MODEL_LOAD_PATH = None 
-    
-    run_training(CONFIG_FILE, MODEL_SAVE_PATH, MODEL_LOAD_PATH)
+    run_training(
+        CONFIG_FILE, 
+        MODEL_SAVE_PATH, 
+        MODEL_LOAD_PATH, 
+        env_class=TrainingEnvironment 
+        #env_class=TargetEnvironment
+    )
