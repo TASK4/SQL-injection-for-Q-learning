@@ -2,20 +2,21 @@ class ActionSpace:
     def __init__(self):
         # Bộ mảnh ghép (Puzzle Pieces)
         self.actions = [
-            # 1. Entry & Exit (Cửa vào và Cửa ra)
+            # 1. Entry & Exit
             "a'))", 
             "--",
             
-            # 2. SQL Syntax (Khung sườn)
+            # 2. SQL Syntax
             " UNION",
             " SELECT",
-            " FROM Users", # Mảnh này hơi to, nhưng tạm chấp nhận cho bài toán này
+            " FROM Users", 
             
-            # 3. Values & Separators (Gạch vữa để xây)
+            # 3. Values & Separators
             " NULL",
             ",",
+            ", NULL",  # [NEW] Thêm hành động này để điền cột nhanh gấp đôi
             
-            # 4. Payload Data (Nội thất bên trong)
+            # 4. Payload Data
             " id", 
             " email", 
             " password"
