@@ -1,81 +1,101 @@
 import requests
-import time
+import configparser
+import sys
+import os
+import urllib.parse
+
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 from src.environment.base_environment import BaseEnvironment
 from src.core.action_space import ActionSpace
-from src.core.reward_system import RewardSystem
 from src.core.state_manager import StateManager
-import configparser
+# Target không cần RewardSystem phức tạp vì ta chỉ cần hành động, nhưng cứ import để tránh lỗi nếu code cũ cần
+from src.core.reward_system import RewardSystem 
 
 class TargetEnvironment(BaseEnvironment):
     def __init__(self, config_file):
         config = configparser.ConfigParser()
         config.read(config_file, encoding='utf-8')
         
-        target_cfg = config['Target']
-        self.url = target_cfg.get('url')
+        # Cấu hình Target
+        target_cfg = config['Target'] if 'Target' in config else config['Training']
         
-        # --- LẤY CÁI HAY TỪ CODE CŨ (Config dynamic) ---
-        # Cho phép đổi tham số search (vd: 'q', 'search', 'query') từ file config
-        self.search_param = target_cfg.get('search_param', 'q') 
-        self.success_marker = target_cfg.get('success_marker', 'admin@juice-sh.op')
-        self.error_marker = "SQLITE_ERROR" 
+        self.url = target_cfg.get('url', 'http://localhost:3000/rest/products/search')
+        self.method = target_cfg.get('method', 'GET')
+        self.param_name = target_cfg.get('param_name', 'q')
         
-        # Proxy config (Để null hoặc điền nếu cần soi qua BurpSuite)
-        self.proxies = None
-        # self.proxies = {"http": "http://127.0.0.1:8080", "https": "http://127.0.0.1:8080"}
-
         self.action_space = ActionSpace()
-        self.state_manager = StateManager() # Feature Vector Mode
+        self.state_manager = StateManager()
         
-        self.reward_system = RewardSystem(
-            normal_count=0,
-            success_marker=self.success_marker,
-            error_marker=self.error_marker,
-            env_type='target' # Quan trọng: Chế độ Target
-        )
-        print(f"[TargetEnvironment] Đã khởi tạo. Target: {self.url} (Param: {self.search_param})")
+        # Chỉ dùng để validate, không dùng để train
+        self.reward_system = RewardSystem(0, "", "", env_type='target')
 
     def reset(self):
+        """Reset trạng thái trước khi bắt đầu chuỗi tấn công mới"""
         return self.state_manager.reset_state()
 
     def step(self, action_index):
+        # 1. Lấy action và update state nội bộ
         action_string = self.action_space.get_action_string(action_index)
+        self.state_manager.update_state(action_string, action_index)
         
-        # 1. Update State -> Nhận về Vector (Tuple) để Agent học
-        # (Đây là cái Agent cần để tra bảng Q-Table)
-        new_state_vector = self.state_manager.update_state(action_string, action_index)
+        payload = self.state_manager.current_state
         
-        # 2. Lấy chuỗi SQL thực tế -> Để gửi lên Server
-        # (Đây là cái Server cần để chạy lệnh SQL)
-        payload_str = self.state_manager.current_state
+        # 2. Gửi Request thật đến Juice Shop
+        response_text = ""
+        status_code = 500
         
-        # 3. Gửi Request
-        response = self._send_payload(payload_str)
-        
-        # 4. Tính điểm (Truyền payload_str là chuỗi để check keyword, lỗi...)
-        reward, done = self.reward_system.calculate_reward(response, payload_str)
-        
-        return new_state_vector, reward, done
-
-    def _send_payload(self, payload):
-        """Gửi payload lên Juice Shop"""
         try:
-            # Dùng self.search_param lấy từ config thay vì fix cứng 'q'
-            params = {self.search_param: payload} 
+            # Encode payload URL
+            params = {self.param_name: payload}
             
-            # Gửi request
-            # timeout=3s để tránh bị treo nếu mạng lag
-            resp = requests.get(
-                self.url, 
-                params=params, 
-                proxies=self.proxies, 
-                timeout=3
-            )
-            return resp
-        except requests.exceptions.RequestException as e:
-            # Nếu lỗi mạng, trả về None để Reward System xử lý (phạt nhẹ)
-            # print(f"[TargetEnv] Request Failed: {e}")
-            return None
+            if self.method.upper() == 'GET':
+                resp = requests.get(self.url, params=params, timeout=5)
+            else:
+                resp = requests.post(self.url, data=params, timeout=5)
+                
+            status_code = resp.status_code
+            response_text = resp.text
+            
+        except Exception as e:
+            print(f"[Target] Connection Error: {e}")
+            response_text = "CONNECTION_ERROR"
+
+        # 3. --- QUAN TRỌNG: CHUẨN HÓA PHẢN HỒI (NORMALIZATION) ---
+        # Biến lỗi thực tế thành tín hiệu mà Agent hiểu (Transfer Learning)
+        
+        normalized_feedback = response_text
+        
+        # Dịch lỗi lệch cột
+        if "selects to the left and right of union" in response_text.lower():
+            normalized_feedback += " _COLUMN_MISMATCH"
+            
+        # Dịch lỗi cú pháp
+        if "sqlite_error" in response_text.lower() and "syntax" in response_text.lower():
+            normalized_feedback += " _SYNTAX_ERROR"
+        if "unrecognized token" in response_text.lower():
+             normalized_feedback += " _SYNTAX_ERROR"
+
+        # 4. Cập nhật Feedback vào não (State Manager)
+        self.state_manager.update_feedback(normalized_feedback)
+        
+        # 5. Lấy State Vector
+        next_state = self.state_manager.get_feature_vector()
+        
+        # Trong thực chiến, ta không biết reward thực sự (trừ khi hack thành công)
+        # Nhưng để code chạy đồng bộ, ta cứ tính reward giả định
+        reward, done = self.reward_system.calculate_reward(
+            type('Response', (), {'status_code': status_code, 'text': normalized_feedback}), 
+            payload
+        )
+        
+        # Nếu server trả về kết quả chứa email admin -> DONE
+        if "admin@juice-sh.op" in response_text:
+            print(f"[!!!] BINGO! Tìm thấy admin với payload: {payload}")
+            reward = 100.0
+            done = True
+            
+        return next_state, reward, done
 
     def get_action_space_size(self):
         return self.action_space.get_action_space_size()
