@@ -3,18 +3,20 @@ import numpy as np
 class StateManager:
     def __init__(self):
         self.current_state = ""
-        # 0: None, 1: Start/End, 2: Logic, 3: Col, 4: NULL, 5: Symbol
+        # Thêm biến đếm bước để Agent biết mình đang ở giai đoạn nào
+        self.step_count = 0 
         self.last_action_type = 0 
 
     def reset_state(self):
         self.current_state = ""
+        self.step_count = 0
         self.last_action_type = 0
         return self.get_feature_vector()
 
     def update_state(self, action_string, action_index):
         s_action = action_string.upper().strip()
         
-        # 1. Logic nối chuỗi thông minh
+        # 1. Logic nối chuỗi (Giữ nguyên)
         if action_string.startswith(",") or action_string.startswith("--") or action_string.startswith(")"):
             self.current_state += action_string
         else:
@@ -23,23 +25,30 @@ class StateManager:
             else:
                 self.current_state += " " + action_string
 
-        # 2. Phân loại mảnh ghép (Puzzle Piece Type)
+        # 2. Phân loại action (Giữ nguyên)
         if "A'))" in s_action: self.last_action_type = 1
         elif any(k in s_action for k in ["UNION", "SELECT", "FROM"]): self.last_action_type = 2
         elif s_action in ["ID", "EMAIL", "PASSWORD"]: self.last_action_type = 3
         elif "NULL" in s_action: self.last_action_type = 4
         elif "," in s_action or "--" in s_action: self.last_action_type = 5
         else: self.last_action_type = 0
-
+        
+        # Tăng bước đếm
+        self.step_count += 1
+        
         return self.get_feature_vector()
 
     def get_feature_vector(self):
         s = self.current_state.upper()
         
-        # --- FEATURE SET ĐƯỢC TỐI ƯU CHO TRANSFER LEARNING ---
+        # --- CẢI TIẾN FEATURE VECTOR ---
         
-        # 1. Trạng thái NULL: Quan trọng để biết có đang "dò cột" hay không
-        # Đếm số lượng NULL trong cụm cuối cùng (sau chữ SELECT gần nhất)
+        # 1. Kiểm tra các mốc quan trọng (Checkpoints)
+        has_entry = 1.0 if s.startswith("A'))") else 0.0
+        has_structure = 1.0 if "UNION" in s and "SELECT" in s else 0.0
+        has_from = 1.0 if "FROM" in s else 0.0
+        
+        # 2. Đếm NULL (Giữ nguyên - Rất quan trọng cho Transfer Learning)
         try:
             last_select_idx = s.rfind("SELECT")
             if last_select_idx != -1:
@@ -49,33 +58,21 @@ class StateManager:
                 consecutive_nulls = 0
         except:
             consecutive_nulls = 0
-            
-        # Normalize nhẹ (chia 10) để mạng dễ học
         null_feature = min(consecutive_nulls / 10.0, 1.0)
         
-        # 2. Các cờ hiệu ngữ pháp (Syntax Flags)
-        has_union = 1.0 if "UNION" in s else 0.0
-        has_select = 1.0 if "SELECT" in s else 0.0
-        has_from = 1.0 if "FROM" in s else 0.0
-        
-        # 3. Last Action (One-hot): Mảnh ghép vừa đặt xuống là gì?
-        # Đây là feature quan trọng nhất để nó biết mảnh tiếp theo nên là gì
+        # 3. Action vừa đi (One-hot)
         last_action_vec = [0.0] * 6
         if 0 <= self.last_action_type <= 5:
             last_action_vec[self.last_action_type] = 1.0
-            
-        # 4. Kiểm tra đóng mở (Structure integrity)
-        has_closed_prefix = 1.0 if "A'))" in s else 0.0
-        has_comment_suffix = 1.0 if "--" in s else 0.0
 
-        # Note: Đã BỎ feature 'length' vì độ dài payload giữa Mock và Target khác nhau.
-        # Transfer Learning sẽ fail nếu dựa vào độ dài.
+        # 4. THÊM MỚI: Tiến độ (Normalized Step Count)
+        # Giúp Agent biết "sắp hết giờ" để chốt đơn
+        step_feature = min(self.step_count / 20.0, 1.0)
 
         return tuple([
+            has_entry,
+            has_structure,
+            has_from,
             null_feature,
-            has_union,
-            has_select,
-            has_from,           # Thêm cái này
-            has_closed_prefix,
-            has_comment_suffix
+            step_feature # <-- Thêm feature này
         ] + last_action_vec)
