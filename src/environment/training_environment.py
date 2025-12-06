@@ -42,8 +42,6 @@ class TrainingEnvironment(BaseEnvironment):
         
         self.conn = sqlite3.connect(':memory:')
         self.cursor = self.conn.cursor()
-        
-        # --- FIX FOR TRANSFER LEARNING: RANDOM PUZZLE FRAME ---
         self.current_hidden_col_count = 3
         
         # Tạo bảng Products (Bảng bị lỗi injection)

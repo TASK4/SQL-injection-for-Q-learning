@@ -1,86 +1,65 @@
+# src/core/state_manager.py
 import numpy as np
 
 class StateManager:
     def __init__(self):
-        self.current_state = ""
-        self.step_count = 0 
-        self.last_action_type = 0 
-        self.last_feedback = 0 # 0: Normal, 1: Syntax Error, 2: Column Mismatch
+        self.current_state = ""       # Chuỗi SQL hiện tại
+        self.last_action = "START"    # Hành động vừa thực hiện
+        self.feedback = "NORMAL"      # Phản hồi từ server (Lỗi/Thành công)
+        
+        # Không dùng SentenceTransformer nữa để tránh trạng thái bị unique hóa
 
     def reset_state(self):
         self.current_state = ""
-        self.step_count = 0
-        self.last_action_type = 0
-        self.last_feedback = 0
+        self.last_action = "START"
+        self.feedback = "NORMAL"
         return self.get_feature_vector()
 
-    def update_feedback(self, error_text):
-        """Cập nhật trạng thái dựa trên phản hồi của DB"""
-        if "COLUMN_MISMATCH" in error_text:
-            self.last_feedback = 2
-        elif "SYNTAX_ERROR" in error_text:
-            self.last_feedback = 1
-        else:
-            self.last_feedback = 0
-
     def update_state(self, action_string, action_index):
-        s_action = action_string.upper().strip()
-        
-        # Logic nối chuỗi
-        if action_string.startswith(",") or action_string.startswith("--") or action_string.startswith(")"):
-            self.current_state += action_string
+        # 1. Cập nhật câu lệnh SQL
+        # Xử lý logic nối chuỗi cho đẹp (tùy chọn)
+        if self.current_state == "":
+            self.current_state = action_string
         else:
-            if self.current_state == "" or self.current_state.endswith(" "):
-                self.current_state += action_string
-            else:
-                self.current_state += " " + action_string
+            self.current_state += " " + action_string
+            
+        # 2. Lưu hành động vừa làm để làm "manh mối" cho State
+        self.last_action = action_string.strip()
 
-        # Phân loại action
-        if "A'))" in s_action: self.last_action_type = 1
-        elif any(k in s_action for k in ["UNION", "SELECT", "FROM"]): self.last_action_type = 2
-        elif s_action in ["ID", "EMAIL", "PASSWORD"]: self.last_action_type = 3
-        elif "NULL" in s_action: self.last_action_type = 4
-        elif "," in s_action or "--" in s_action: self.last_action_type = 5
-        else: self.last_action_type = 0
+    def update_feedback(self, feedback_text):
+        # Đơn giản hóa Feedback thành các Tag ngắn gọn
+        self.feedback = "NORMAL"
         
-        self.step_count += 1
-        # Lưu ý: Trả về None vì chưa có feedback để tính vector đầy đủ
-        return None 
+        feedback_lower = feedback_text.lower()
+        
+        if "column_mismatch" in feedback_text: # Ưu tiên lỗi này
+            self.feedback = "MISMATCH"
+        elif "syntax_error" in feedback_text or "syntax" in feedback_lower:
+            self.feedback = "SYNTAX"
+        elif "internal_error" in feedback_text:
+            self.feedback = "ERROR"
+        # Nếu status 200 (không lỗi) và không có mismatch -> Tạm coi là OK
+        elif feedback_text.startswith('[') or "admin" in feedback_lower: # JSON hoặc admin
+            self.feedback = "SUCCESS_CANDIDATE"
 
     def get_feature_vector(self):
+        """
+        Thay vì trả về Vector số thực (khiến Q-Table bị loạn),
+        ta trả về một CHUỖI ĐẠI DIỆN (Discrete State Key).
+        
+        State = "Hành động vừa xong" + "Tình trạng hiện tại"
+        Ví dụ: "NULL|MISMATCH" -> Agent sẽ học là cần thêm dấu phẩy.
+               "NULL|SUCCESS_CANDIDATE" -> Agent sẽ học là cần thêm 'FROM Users'.
+        """
         s = self.current_state.upper()
-        
-        # 1. Các Checkpoint quan trọng
-        has_entry = 1 if s.startswith("A'))") else 0
-        has_union_select = 1 if "UNION" in s and "SELECT" in s else 0
-        has_from = 1 if "FROM" in s else 0
-        
-        # 2. Đếm số lượng NULL (Bucket lại để giảm state space)
         null_count = s.count("NULL")
-        if null_count >= 3: null_feat = 3
-        else: null_feat = null_count
         
-        # 3. Last Action (One-hot)
-        last_action_vec = [0] * 6
-        if 0 <= self.last_action_type <= 5:
-            last_action_vec[self.last_action_type] = 1
-
-        # 4. Feedback từ môi trường (QUAN TRỌNG)
-        feedback_vec = [0] * 3
-        if 0 <= self.last_feedback <= 2:
-            feedback_vec[self.last_feedback] = 1
+        if null_count >= 10: 
+            null_feat = 10
+        else: 
+            null_feat = null_count
         
-        # 5. Step Phase (Rời rạc hóa thời gian)
-        if self.step_count < 5: step_phase = 0
-        elif self.step_count < 15: step_phase = 1
-        else: step_phase = 2
-        step_vec = [0]*3
-        step_vec[step_phase] = 1
-
-        # Tổng hợp thành tuple hashable
-        return tuple(
-            [has_entry, has_union_select, has_from, null_feat] + 
-            last_action_vec + 
-            feedback_vec + 
-            step_vec
-        )
+        state_key = f"{self.last_action}|{self.feedback}"
+        
+        # Q-Table cần key là string hoặc tuple, ta trả về string cho dễ
+        return state_key

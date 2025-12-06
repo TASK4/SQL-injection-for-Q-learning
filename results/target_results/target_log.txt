@@ -1,5 +1,0 @@
-2025-12-06 12:45:14,413 - INFO - Bắt đầu quá trình huấn luyện với config: config/config_target.ini | Env: target
-2025-12-06 12:45:14,422 - INFO - Sử dụng TargetEnvironment (real HTTP).
-2025-12-06 12:45:14,423 - INFO - Đang tải model từ: results/train_results/transfer_brain.pkl
-2025-12-06 12:45:14,440 - INFO - TARGET MODE: Epsilon đặt lại là 0.3 để fine-tune.
-2025-12-06 12:45:14,441 - INFO - --- Bắt đầu 1000 episodes ---

@@ -1,5 +1,0 @@
-2025-12-06 14:34:50,451 - --- Bắt đầu tự động dự đoán (tối đa 100 lần) ---
-2025-12-06 14:34:50,452 - Sử dụng Config: config/config_target.ini
-2025-12-06 14:34:50,452 - Sử dụng Model: results/target_results/target_model.json
-2025-12-06 14:34:50,452 - Độ ngẫu nhiên (Epsilon): 0.05
-2025-12-06 14:34:50,453 - Lỗi: Thiếu key 'search_url' trong file config 'config/config_target.ini'. Dừng lại.
