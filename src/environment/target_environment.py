@@ -56,6 +56,8 @@ class TargetEnvironment(BaseEnvironment):
                 
             status_code = resp.status_code
             response_text = resp.text
+            print(f"\n[DEBUG] Status: {status_code} | Payload: {payload}")
+            print(f"[DEBUG] Response Head: {response_text[:200]}...")
             
         except Exception as e:
             print(f"[Target] Connection Error: {e}")

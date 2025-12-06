@@ -44,7 +44,7 @@ class TrainingEnvironment(BaseEnvironment):
         self.cursor = self.conn.cursor()
         
         # --- FIX FOR TRANSFER LEARNING: RANDOM PUZZLE FRAME ---
-        self.current_hidden_col_count = random.randint(1, 6)
+        self.current_hidden_col_count = 3
         
         # Tạo bảng Products (Bảng bị lỗi injection)
         cols = ", ".join([f"c{i} TEXT" for i in range(1, self.current_hidden_col_count + 1)])
