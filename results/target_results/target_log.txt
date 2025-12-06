@@ -1,0 +1,22 @@
+2025-11-27 21:48:42,428 - INFO - Bắt đầu quá trình huấn luyện với config: config/config_target.ini | Env: target
+2025-11-27 21:48:42,434 - INFO - Sử dụng TargetEnvironment (real HTTP).
+2025-11-27 21:48:42,435 - INFO - Đang tải model từ: results/train_results/mock_model.json
+2025-11-27 21:48:42,484 - INFO - TARGET MODE: Epsilon đặt lại là 0.3 để fine-tune.
+2025-11-27 21:48:42,487 - INFO - --- Bắt đầu 1000 episodes ---
+2025-11-27 21:49:30,130 - INFO - Episode 100: Avg Reward(100ep): 1.58 | Successes(100ep): 0
+2025-11-27 21:50:01,987 - INFO - Episode 200: Avg Reward(100ep): 1.54 | Successes(100ep): 0
+2025-11-27 21:50:37,884 - INFO - Episode 300: Avg Reward(100ep): 1.68 | Successes(100ep): 0
+2025-11-27 21:51:08,205 - INFO - Episode 400: Avg Reward(100ep): 1.90 | Successes(100ep): 0
+2025-11-27 21:51:40,445 - INFO - Episode 500: Avg Reward(100ep): 1.84 | Successes(100ep): 0
+2025-11-27 21:52:11,715 - INFO - Episode 600: Avg Reward(100ep): 1.98 | Successes(100ep): 0
+2025-11-27 21:52:43,906 - INFO - Episode 700: Avg Reward(100ep): 1.96 | Successes(100ep): 0
+2025-11-27 21:53:16,373 - INFO - Episode 800: Avg Reward(100ep): 2.02 | Successes(100ep): 0
+2025-11-27 21:53:48,137 - INFO - Episode 900: Avg Reward(100ep): 1.86 | Successes(100ep): 0
+2025-11-27 21:54:19,137 - INFO - Episode 1000: Avg Reward(100ep): 1.90 | Successes(100ep): 0
+2025-11-27 21:54:19,142 - INFO - 
+--- Hoàn tất ---
+2025-11-27 21:54:19,146 - INFO - Tổng success: 0/1000 (0.00%)
+2025-11-27 21:54:19,147 - INFO - Reward trung bình (toàn bộ): 1.83
+2025-11-27 21:54:19,153 - INFO - Reward trung bình (10% cuối): 1.90
+2025-11-27 21:54:19,166 - INFO - Tổng thời gian chạy: 336.72 giây
+2025-11-27 21:54:20,161 - INFO - Lưu chart: results/target_results\target_chart.png

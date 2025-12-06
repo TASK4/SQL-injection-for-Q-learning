@@ -1,47 +1,50 @@
+import pickle
 import numpy as np
-from collections import defaultdict
-import json
-import os 
 
 class QTable:
-    """
-    Quản lý cấu trúc dữ liệu Q-Table (dạng dictionary).
-    Q[state] = array[q_value_for_action_0, q_value_for_action_1, ...]
-    """
-    def __init__(self, action_space_size):
-        self.action_space_size = action_space_size
-        # Dùng defaultdict để tự động thêm state mới với giá trị 0
-        self.table = defaultdict(lambda: np.zeros(self.action_space_size))
+    def __init__(self, action_size):
+        self.q_table = {} # Key: State Tuple, Value: List of Q-values
+        self.action_size = action_size
 
-    def get(self, state):
-        """Lấy mảng Q-values cho một state. Tự động tạo nếu chưa có."""
-        return self.table[state]
+    def _get_state_key(self, state):
+        """
+        Chuyển đổi State thành Key an toàn cho Dictionary.
+        Làm tròn số thực đến 2 chữ số thập phân để gộp các trạng thái tương tự nhau.
+        """
+        if isinstance(state, (list, np.ndarray)):
+            # Làm tròn từng phần tử trong vector state
+            return tuple(round(x, 2) if isinstance(x, (float, np.floating)) else x for x in state)
+        return state
 
-    def set(self, state, action_index, value):
-        """Cập nhật Q-value cho một cặp (state, action)."""
-        self.table[state][action_index] = value
+    def get_q_value(self, state, action):
+        state_key = self._get_state_key(state)
+        # Nếu chưa gặp state này bao giờ, trả về 0.0 (hoặc số dương nhỏ để khuyến khích tò mò)
+        if state_key not in self.q_table:
+            return 0.0 
+        return self.q_table[state_key][action]
 
-    def save(self, filepath):
-        """Lưu Q-Table ra file JSON."""
-        # Lấy đường dẫn thư mục từ filepath
-        directory = os.path.dirname(filepath)
-        # Tạo thư mục nếu nó chưa tồn tại (exist_ok=True)
-        os.makedirs(directory, exist_ok=True)
-        # ------------------------------------
+    def get_max_q(self, state):
+        state_key = self._get_state_key(state)
+        if state_key not in self.q_table:
+            return 0.0
+        return max(self.q_table[state_key])
 
-        # Chuyển defaultdict thành dict thường để lưu
-        saveable_table = {k: list(v) for k, v in self.table.items()}
-        with open(filepath, 'w') as f:
-            json.dump(saveable_table, f)
-        print(f"\n[QTable] Đã lưu model vào: {filepath}")
-
-    def load(self, filepath):
-        """Tải Q-Table từ file JSON."""
-        with open(filepath, 'r') as f:
-            loaded_table = json.load(f)
+    def update_q_value(self, state, action, value):
+        state_key = self._get_state_key(state)
+        if state_key not in self.q_table:
+            # Khởi tạo row mới với toàn số 0
+            self.q_table[state_key] = [0.0] * self.action_size
         
-        # Nạp lại vào defaultdict
-        self.table = defaultdict(lambda: np.zeros(self.action_space_size))
-        for state, values in loaded_table.items():
-            self.table[state] = np.array(values)
-        print(f"\n[QTable] Đã tải model từ: {filepath}")
+        self.q_table[state_key][action] = value
+
+    def save_q_table(self, filename):
+        with open(filename, 'wb') as f:
+            pickle.dump(self.q_table, f)
+
+    def load_q_table(self, filename):
+        try:
+            with open(filename, 'rb') as f:
+                self.q_table = pickle.load(f)
+            print(f"Loaded Q-table from {filename}")
+        except FileNotFoundError:
+            print("No existing Q-table found. Starting fresh.")
