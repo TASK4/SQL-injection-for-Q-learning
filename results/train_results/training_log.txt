@@ -1,62 +1,62 @@
-2025-12-06 13:18:53,501 - INFO - Bắt đầu quá trình huấn luyện với config: config/config_training.ini | Env: training
-2025-12-06 13:18:53,503 - INFO - Sử dụng TrainingEnvironment (mock) cho speed.
-2025-12-06 13:18:53,503 - INFO - Chạy baseline test...
-2025-12-06 13:18:53,503 - WARNING - Baseline test fail: 'TrainingEnvironment' object has no attribute 'test_baseline', skip.
-2025-12-06 13:18:53,504 - INFO - --- Bắt đầu 5000 episodes ---
-2025-12-06 13:18:53,614 - INFO - Episode 100: Avg Reward(100ep): -13.67 | Successes(100ep): 0
-2025-12-06 13:18:53,710 - INFO - Episode 200: Avg Reward(100ep): 13.03 | Successes(100ep): 0
-2025-12-06 13:18:53,790 - INFO - Episode 300: Avg Reward(100ep): 37.01 | Successes(100ep): 0
-2025-12-06 13:18:53,852 - INFO - Episode 400: Avg Reward(100ep): 40.78 | Successes(100ep): 0
-2025-12-06 13:18:53,906 - INFO - Episode 500: Avg Reward(100ep): 51.50 | Successes(100ep): 0
-2025-12-06 13:18:53,962 - INFO - Episode 600: Avg Reward(100ep): 41.80 | Successes(100ep): 0
-2025-12-06 13:18:54,012 - INFO - Episode 700: Avg Reward(100ep): 47.18 | Successes(100ep): 0
-2025-12-06 13:18:54,064 - INFO - Episode 800: Avg Reward(100ep): 49.66 | Successes(100ep): 0
-2025-12-06 13:18:54,111 - INFO - Episode 900: Avg Reward(100ep): 43.70 | Successes(100ep): 0
-2025-12-06 13:18:54,160 - INFO - Episode 1000: Avg Reward(100ep): 52.07 | Successes(100ep): 0
-2025-12-06 13:18:54,207 - INFO - Episode 1100: Avg Reward(100ep): 50.38 | Successes(100ep): 0
-2025-12-06 13:18:54,255 - INFO - Episode 1200: Avg Reward(100ep): 40.44 | Successes(100ep): 0
-2025-12-06 13:18:54,304 - INFO - Episode 1300: Avg Reward(100ep): 44.30 | Successes(100ep): 0
-2025-12-06 13:18:54,353 - INFO - Episode 1400: Avg Reward(100ep): 46.77 | Successes(100ep): 0
-2025-12-06 13:18:54,397 - INFO - Episode 1500: Avg Reward(100ep): 47.05 | Successes(100ep): 0
-2025-12-06 13:18:54,449 - INFO - Episode 1600: Avg Reward(100ep): 44.74 | Successes(100ep): 0
-2025-12-06 13:18:54,499 - INFO - Episode 1700: Avg Reward(100ep): 49.60 | Successes(100ep): 0
-2025-12-06 13:18:54,549 - INFO - Episode 1800: Avg Reward(100ep): 50.40 | Successes(100ep): 0
-2025-12-06 13:18:54,597 - INFO - Episode 1900: Avg Reward(100ep): 45.12 | Successes(100ep): 0
-2025-12-06 13:18:54,643 - INFO - Episode 2000: Avg Reward(100ep): 47.39 | Successes(100ep): 0
-2025-12-06 13:18:54,702 - INFO - Episode 2100: Avg Reward(100ep): 80.47 | Successes(100ep): 0
-2025-12-06 13:18:54,803 - INFO - Episode 2200: Avg Reward(100ep): 171.57 | Successes(100ep): 0
-2025-12-06 13:18:54,919 - INFO - Episode 2300: Avg Reward(100ep): 162.80 | Successes(100ep): 0
-2025-12-06 13:18:55,021 - INFO - Episode 2400: Avg Reward(100ep): 164.84 | Successes(100ep): 0
-2025-12-06 13:18:55,121 - INFO - Episode 2500: Avg Reward(100ep): 156.04 | Successes(100ep): 0
-2025-12-06 13:18:55,224 - INFO - Episode 2600: Avg Reward(100ep): 166.22 | Successes(100ep): 0
-2025-12-06 13:18:55,326 - INFO - Episode 2700: Avg Reward(100ep): 158.90 | Successes(100ep): 0
-2025-12-06 13:18:55,433 - INFO - Episode 2800: Avg Reward(100ep): 153.75 | Successes(100ep): 0
-2025-12-06 13:18:55,528 - INFO - Episode 2900: Avg Reward(100ep): 147.59 | Successes(100ep): 0
-2025-12-06 13:18:55,635 - INFO - Episode 3000: Avg Reward(100ep): 169.68 | Successes(100ep): 0
-2025-12-06 13:18:55,731 - INFO - Episode 3100: Avg Reward(100ep): 145.85 | Successes(100ep): 0
-2025-12-06 13:18:55,828 - INFO - Episode 3200: Avg Reward(100ep): 148.56 | Successes(100ep): 0
-2025-12-06 13:18:55,932 - INFO - Episode 3300: Avg Reward(100ep): 171.81 | Successes(100ep): 0
-2025-12-06 13:18:56,027 - INFO - Episode 3400: Avg Reward(100ep): 148.94 | Successes(100ep): 0
-2025-12-06 13:18:56,132 - INFO - Episode 3500: Avg Reward(100ep): 173.17 | Successes(100ep): 0
-2025-12-06 13:18:56,236 - INFO - Episode 3600: Avg Reward(100ep): 172.66 | Successes(100ep): 0
-2025-12-06 13:18:56,343 - INFO - Episode 3700: Avg Reward(100ep): 176.05 | Successes(100ep): 0
-2025-12-06 13:18:56,461 - INFO - Episode 3800: Avg Reward(100ep): 176.20 | Successes(100ep): 0
-2025-12-06 13:18:56,565 - INFO - Episode 3900: Avg Reward(100ep): 171.49 | Successes(100ep): 0
-2025-12-06 13:18:56,669 - INFO - Episode 4000: Avg Reward(100ep): 169.00 | Successes(100ep): 0
-2025-12-06 13:18:56,777 - INFO - Episode 4100: Avg Reward(100ep): 174.05 | Successes(100ep): 0
-2025-12-06 13:18:56,880 - INFO - Episode 4200: Avg Reward(100ep): 172.65 | Successes(100ep): 0
-2025-12-06 13:18:56,987 - INFO - Episode 4300: Avg Reward(100ep): 189.06 | Successes(100ep): 0
-2025-12-06 13:18:57,098 - INFO - Episode 4400: Avg Reward(100ep): 185.16 | Successes(100ep): 0
-2025-12-06 13:18:57,203 - INFO - Episode 4500: Avg Reward(100ep): 182.21 | Successes(100ep): 0
-2025-12-06 13:18:57,309 - INFO - Episode 4600: Avg Reward(100ep): 176.79 | Successes(100ep): 0
-2025-12-06 13:18:57,414 - INFO - Episode 4700: Avg Reward(100ep): 152.83 | Successes(100ep): 0
-2025-12-06 13:18:57,526 - INFO - Episode 4800: Avg Reward(100ep): 181.90 | Successes(100ep): 0
-2025-12-06 13:18:57,633 - INFO - Episode 4900: Avg Reward(100ep): 170.06 | Successes(100ep): 0
-2025-12-06 13:18:57,739 - INFO - Episode 5000: Avg Reward(100ep): 174.50 | Successes(100ep): 0
-2025-12-06 13:18:57,740 - INFO - 
+2025-12-06 13:36:31,469 - INFO - Bắt đầu quá trình huấn luyện với config: config/config_training.ini | Env: training
+2025-12-06 13:36:31,471 - INFO - Sử dụng TrainingEnvironment (mock) cho speed.
+2025-12-06 13:36:31,471 - INFO - Chạy baseline test...
+2025-12-06 13:36:31,472 - WARNING - Baseline test fail: 'TrainingEnvironment' object has no attribute 'test_baseline', skip.
+2025-12-06 13:36:31,472 - INFO - --- Bắt đầu 5000 episodes ---
+2025-12-06 13:36:31,583 - INFO - Episode 100: Avg Reward(100ep): -12.83 | Successes(100ep): 0
+2025-12-06 13:36:31,684 - INFO - Episode 200: Avg Reward(100ep): 17.84 | Successes(100ep): 0
+2025-12-06 13:36:31,787 - INFO - Episode 300: Avg Reward(100ep): 24.94 | Successes(100ep): 0
+2025-12-06 13:36:31,893 - INFO - Episode 400: Avg Reward(100ep): 38.44 | Successes(100ep): 0
+2025-12-06 13:36:31,995 - INFO - Episode 500: Avg Reward(100ep): 54.50 | Successes(100ep): 0
+2025-12-06 13:36:32,097 - INFO - Episode 600: Avg Reward(100ep): 53.35 | Successes(100ep): 0
+2025-12-06 13:36:32,199 - INFO - Episode 700: Avg Reward(100ep): 59.09 | Successes(100ep): 0
+2025-12-06 13:36:32,297 - INFO - Episode 800: Avg Reward(100ep): 55.98 | Successes(100ep): 0
+2025-12-06 13:36:32,395 - INFO - Episode 900: Avg Reward(100ep): 54.54 | Successes(100ep): 0
+2025-12-06 13:36:32,512 - INFO - Episode 1000: Avg Reward(100ep): 56.72 | Successes(100ep): 0
+2025-12-06 13:36:32,611 - INFO - Episode 1100: Avg Reward(100ep): 57.47 | Successes(100ep): 0
+2025-12-06 13:36:32,708 - INFO - Episode 1200: Avg Reward(100ep): 55.87 | Successes(100ep): 0
+2025-12-06 13:36:32,804 - INFO - Episode 1300: Avg Reward(100ep): 58.48 | Successes(100ep): 0
+2025-12-06 13:36:32,899 - INFO - Episode 1400: Avg Reward(100ep): 59.45 | Successes(100ep): 0
+2025-12-06 13:36:32,994 - INFO - Episode 1500: Avg Reward(100ep): 55.12 | Successes(100ep): 0
+2025-12-06 13:36:33,091 - INFO - Episode 1600: Avg Reward(100ep): 56.12 | Successes(100ep): 0
+2025-12-06 13:36:33,187 - INFO - Episode 1700: Avg Reward(100ep): 59.50 | Successes(100ep): 0
+2025-12-06 13:36:33,283 - INFO - Episode 1800: Avg Reward(100ep): 58.36 | Successes(100ep): 0
+2025-12-06 13:36:33,381 - INFO - Episode 1900: Avg Reward(100ep): 54.84 | Successes(100ep): 0
+2025-12-06 13:36:33,478 - INFO - Episode 2000: Avg Reward(100ep): 57.76 | Successes(100ep): 0
+2025-12-06 13:36:33,575 - INFO - Episode 2100: Avg Reward(100ep): 56.58 | Successes(100ep): 0
+2025-12-06 13:36:33,684 - INFO - Episode 2200: Avg Reward(100ep): 58.82 | Successes(100ep): 0
+2025-12-06 13:36:33,774 - INFO - Episode 2300: Avg Reward(100ep): 58.62 | Successes(100ep): 0
+2025-12-06 13:36:33,869 - INFO - Episode 2400: Avg Reward(100ep): 58.69 | Successes(100ep): 0
+2025-12-06 13:36:33,966 - INFO - Episode 2500: Avg Reward(100ep): 56.30 | Successes(100ep): 0
+2025-12-06 13:36:34,064 - INFO - Episode 2600: Avg Reward(100ep): 56.73 | Successes(100ep): 0
+2025-12-06 13:36:34,161 - INFO - Episode 2700: Avg Reward(100ep): 54.98 | Successes(100ep): 0
+2025-12-06 13:36:34,261 - INFO - Episode 2800: Avg Reward(100ep): 56.14 | Successes(100ep): 0
+2025-12-06 13:36:34,364 - INFO - Episode 2900: Avg Reward(100ep): 50.35 | Successes(100ep): 0
+2025-12-06 13:36:34,461 - INFO - Episode 3000: Avg Reward(100ep): 54.33 | Successes(100ep): 0
+2025-12-06 13:36:34,558 - INFO - Episode 3100: Avg Reward(100ep): 55.00 | Successes(100ep): 0
+2025-12-06 13:36:34,656 - INFO - Episode 3200: Avg Reward(100ep): 55.13 | Successes(100ep): 0
+2025-12-06 13:36:34,760 - INFO - Episode 3300: Avg Reward(100ep): 52.02 | Successes(100ep): 0
+2025-12-06 13:36:34,857 - INFO - Episode 3400: Avg Reward(100ep): 59.45 | Successes(100ep): 0
+2025-12-06 13:36:34,955 - INFO - Episode 3500: Avg Reward(100ep): 54.42 | Successes(100ep): 0
+2025-12-06 13:36:35,057 - INFO - Episode 3600: Avg Reward(100ep): 57.13 | Successes(100ep): 0
+2025-12-06 13:36:35,157 - INFO - Episode 3700: Avg Reward(100ep): 53.94 | Successes(100ep): 0
+2025-12-06 13:36:35,256 - INFO - Episode 3800: Avg Reward(100ep): 58.31 | Successes(100ep): 0
+2025-12-06 13:36:35,354 - INFO - Episode 3900: Avg Reward(100ep): 56.51 | Successes(100ep): 0
+2025-12-06 13:36:35,454 - INFO - Episode 4000: Avg Reward(100ep): 57.06 | Successes(100ep): 0
+2025-12-06 13:36:35,555 - INFO - Episode 4100: Avg Reward(100ep): 59.23 | Successes(100ep): 0
+2025-12-06 13:36:35,654 - INFO - Episode 4200: Avg Reward(100ep): 58.68 | Successes(100ep): 0
+2025-12-06 13:36:35,751 - INFO - Episode 4300: Avg Reward(100ep): 58.10 | Successes(100ep): 0
+2025-12-06 13:36:35,850 - INFO - Episode 4400: Avg Reward(100ep): 57.47 | Successes(100ep): 0
+2025-12-06 13:36:35,952 - INFO - Episode 4500: Avg Reward(100ep): 56.35 | Successes(100ep): 0
+2025-12-06 13:36:36,051 - INFO - Episode 4600: Avg Reward(100ep): 57.44 | Successes(100ep): 0
+2025-12-06 13:36:36,151 - INFO - Episode 4700: Avg Reward(100ep): 53.19 | Successes(100ep): 0
+2025-12-06 13:36:36,250 - INFO - Episode 4800: Avg Reward(100ep): 52.90 | Successes(100ep): 0
+2025-12-06 13:36:36,350 - INFO - Episode 4900: Avg Reward(100ep): 56.21 | Successes(100ep): 0
+2025-12-06 13:36:36,449 - INFO - Episode 5000: Avg Reward(100ep): 61.39 | Successes(100ep): 0
+2025-12-06 13:36:36,451 - INFO - 
 --- Hoàn tất ---
-2025-12-06 13:18:57,741 - INFO - Tổng success: 0/5000 (0.00%)
-2025-12-06 13:18:57,742 - INFO - Reward trung bình (toàn bộ): 115.48
-2025-12-06 13:18:57,742 - INFO - Reward trung bình (10% cuối): 171.22
-2025-12-06 13:18:57,742 - INFO - Tổng thời gian chạy: 4.24 giây
-2025-12-06 13:18:58,021 - INFO - Lưu chart: results/train_results\training_chart.png
+2025-12-06 13:36:36,452 - INFO - Tổng success: 0/5000 (0.00%)
+2025-12-06 13:36:36,453 - INFO - Reward trung bình (toàn bộ): 53.34
+2025-12-06 13:36:36,453 - INFO - Reward trung bình (10% cuối): 56.23
+2025-12-06 13:36:36,454 - INFO - Tổng thời gian chạy: 4.98 giây
+2025-12-06 13:36:36,734 - INFO - Lưu chart: results/train_results\training_chart.png
