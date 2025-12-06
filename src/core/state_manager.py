@@ -1,3 +1,6 @@
+# state_manager.py 
+import hashlib  # Move up here
+
 class StateManager:
     """
     Quản lý và theo dõi trạng thái hiện tại (payload).
@@ -23,7 +26,11 @@ class StateManager:
     def update_state(self, action_string):
         """
         Cập nhật trạng thái bằng cách nối thêm mảnh hành động (action_string)
-        vào payload hiện tại.
+        vào payload hiện tại. Use hash for compact state if long.
         """
         self.current_state += action_string
-        return self.current_state
+        # Hash last 20 chars để state compact (giảm explosion)
+        if len(self.current_state) > 20:
+            state_hash = hashlib.md5(self.current_state[-20:].encode()).hexdigest()
+            return state_hash  # Return hash as state for Q-table (string)
+        return self.current_state  # Short: use full string (string)

@@ -11,11 +11,12 @@ class HttpClient:
             'User-Agent': 'Q-Learning SQLi Agent (Academic Research)'
         })
 
-    def send_search_query(self, url, query):
+    def send_search_query(self, url, query, param_name='q'):
         """
         Gửi payload 'query' đến URL mục tiêu.
         """
-        params = {'q': query}
+        # Allow configurable param name (default 'q')
+        params = {param_name: query}
         try:
             # Đặt timeout để tránh agent bị "treo"
             response = self.session.get(url, params=params, timeout=5)

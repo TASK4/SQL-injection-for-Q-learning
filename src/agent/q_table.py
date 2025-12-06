@@ -1,6 +1,7 @@
 import numpy as np
 from collections import defaultdict
 import json
+import os 
 
 class QTable:
     """
@@ -22,6 +23,12 @@ class QTable:
 
     def save(self, filepath):
         """Lưu Q-Table ra file JSON."""
+        # Lấy đường dẫn thư mục từ filepath
+        directory = os.path.dirname(filepath)
+        # Tạo thư mục nếu nó chưa tồn tại (exist_ok=True)
+        os.makedirs(directory, exist_ok=True)
+        # ------------------------------------
+
         # Chuyển defaultdict thành dict thường để lưu
         saveable_table = {k: list(v) for k, v in self.table.items()}
         with open(filepath, 'w') as f:
