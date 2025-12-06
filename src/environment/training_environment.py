@@ -3,8 +3,8 @@ import json
 import configparser
 import sys
 import os
+import random  # <--- Import thêm random
 
-# Xử lý import path nếu chạy local hoặc trong package
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from src.environment.base_environment import BaseEnvironment
@@ -24,7 +24,6 @@ class TrainingEnvironment(BaseEnvironment):
         self.action_space = ActionSpace()
         self.state_manager = StateManager()
         
-        # Khởi tạo Reward System với cấu hình Sướng trước - Khổ sau
         self.reward_system = RewardSystem(
             normal_count=0,
             success_marker=self.success_marker,
@@ -44,11 +43,13 @@ class TrainingEnvironment(BaseEnvironment):
         self.conn = sqlite3.connect(':memory:')
         self.cursor = self.conn.cursor()
         
-        # 1. Random số cột để AI tập dò (hoặc cố định là 3 cho dễ trước)
-        self.current_hidden_col_count = 3 
+        # --- FIX FOR TRANSFER LEARNING: RANDOM PUZZLE FRAME ---
+        # Thay vì cố định 3 cột, mỗi lần reset ta random từ 1 đến 6 cột.
+        # AI buộc phải học thuật toán "dò cột" thay vì học vẹt số lượng.
+        self.current_hidden_col_count = random.randint(1, 6)
+        # print(f"[DEBUG] Số cột ẩn hiện tại: {self.current_hidden_col_count}") # Bật nếu muốn soi
         
-        # 2. Tạo bảng Products (Bảng bị lỗi injection)
-        # QUAN TRỌNG: Cột c1 phải là TEXT để test lỗi ' (String Injection)
+        # Tạo bảng Products (Bảng bị lỗi injection)
         cols = ", ".join([f"c{i} TEXT" for i in range(1, self.current_hidden_col_count + 1)])
         self.cursor.execute(f"CREATE TABLE Products ({cols})")
         
@@ -57,7 +58,7 @@ class TrainingEnvironment(BaseEnvironment):
         dummy_data = ["dummy_val"] * self.current_hidden_col_count
         self.cursor.execute(f"INSERT INTO Products VALUES ({placeholders})", dummy_data)
 
-        # 3. Tạo bảng Users (Mục tiêu)
+        # Tạo bảng Users (Mục tiêu)
         self.cursor.execute("CREATE TABLE Users (id INTEGER, email TEXT, password TEXT)")
         self.cursor.execute("INSERT INTO Users VALUES (?, ?, ?)", (1, self.success_marker, "123456"))
         
@@ -67,7 +68,7 @@ class TrainingEnvironment(BaseEnvironment):
         """Reset môi trường cho ván mới."""
         self._setup_db()
         
-        # QUAN TRỌNG: Reset trí nhớ của hệ thống thưởng phạt
+        # Reset reward system để tính điểm lại từ đầu
         if hasattr(self.reward_system, 'reset'):
             self.reward_system.reset()
             
@@ -82,18 +83,14 @@ class TrainingEnvironment(BaseEnvironment):
         # Lấy payload hiện tại
         payload = self.state_manager.current_state
         
-        # --- GIẢ LẬP LỖ HỔNG (Vulnerable Query) ---
-        # Query gốc giả định: SELECT * FROM Products WHERE ((c1 = '$input'))
-        # Đây là lý do tại sao action "a'))" lại hiệu quả:
-        # Nó biến query thành: ... WHERE ((c1 = 'a')) UNION ... --'))
+        # --- GIẢ LẬP LỖ HỔNG ---
         full_query = f"SELECT * FROM Products WHERE ((c1 = '{payload}'))"
         
         try:
-            # Thực thi SQL
             self.cursor.execute(full_query)
             rows = self.cursor.fetchall()
             
-            # Nếu không lỗi -> Thành công (về mặt cú pháp)
+            # Thành công về cú pháp và logic
             response_text = json.dumps(rows)
             status_code = 200
             
@@ -102,7 +99,7 @@ class TrainingEnvironment(BaseEnvironment):
             status_code = 500
             response_text = self.error_marker
             
-            # Gợi ý lỗi cho AI (nếu muốn nó học nhanh hơn)
+            # Gợi ý lỗi quan trọng để AI học nhanh hơn
             if "selects to the left and right of union do not have the same number of result columns" in err_msg:
                 response_text += "_COLUMN_MISMATCH"
             elif "syntax error" in err_msg or "incomplete input" in err_msg:
@@ -115,7 +112,7 @@ class TrainingEnvironment(BaseEnvironment):
         # Đóng gói response
         response = type('Response', (), {'status_code': status_code, 'text': response_text})
         
-        # Tính thưởng (Reward)
+        # Tính thưởng
         reward, done = self.reward_system.calculate_reward(response, payload)
         
         return state_vector, reward, done

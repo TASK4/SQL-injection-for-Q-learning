@@ -1,22 +1,39 @@
-2025-11-27 21:48:42,428 - INFO - Bắt đầu quá trình huấn luyện với config: config/config_target.ini | Env: target
-2025-11-27 21:48:42,434 - INFO - Sử dụng TargetEnvironment (real HTTP).
-2025-11-27 21:48:42,435 - INFO - Đang tải model từ: results/train_results/mock_model.json
-2025-11-27 21:48:42,484 - INFO - TARGET MODE: Epsilon đặt lại là 0.3 để fine-tune.
-2025-11-27 21:48:42,487 - INFO - --- Bắt đầu 1000 episodes ---
-2025-11-27 21:49:30,130 - INFO - Episode 100: Avg Reward(100ep): 1.58 | Successes(100ep): 0
-2025-11-27 21:50:01,987 - INFO - Episode 200: Avg Reward(100ep): 1.54 | Successes(100ep): 0
-2025-11-27 21:50:37,884 - INFO - Episode 300: Avg Reward(100ep): 1.68 | Successes(100ep): 0
-2025-11-27 21:51:08,205 - INFO - Episode 400: Avg Reward(100ep): 1.90 | Successes(100ep): 0
-2025-11-27 21:51:40,445 - INFO - Episode 500: Avg Reward(100ep): 1.84 | Successes(100ep): 0
-2025-11-27 21:52:11,715 - INFO - Episode 600: Avg Reward(100ep): 1.98 | Successes(100ep): 0
-2025-11-27 21:52:43,906 - INFO - Episode 700: Avg Reward(100ep): 1.96 | Successes(100ep): 0
-2025-11-27 21:53:16,373 - INFO - Episode 800: Avg Reward(100ep): 2.02 | Successes(100ep): 0
-2025-11-27 21:53:48,137 - INFO - Episode 900: Avg Reward(100ep): 1.86 | Successes(100ep): 0
-2025-11-27 21:54:19,137 - INFO - Episode 1000: Avg Reward(100ep): 1.90 | Successes(100ep): 0
-2025-11-27 21:54:19,142 - INFO - 
---- Hoàn tất ---
-2025-11-27 21:54:19,146 - INFO - Tổng success: 0/1000 (0.00%)
-2025-11-27 21:54:19,147 - INFO - Reward trung bình (toàn bộ): 1.83
-2025-11-27 21:54:19,153 - INFO - Reward trung bình (10% cuối): 1.90
-2025-11-27 21:54:19,166 - INFO - Tổng thời gian chạy: 336.72 giây
-2025-11-27 21:54:20,161 - INFO - Lưu chart: results/target_results\target_chart.png
+2025-12-06 11:02:45,324 - INFO - Bắt đầu quá trình huấn luyện với config: config/config_target.ini | Env: target
+2025-12-06 11:02:45,342 - INFO - Sử dụng TargetEnvironment (real HTTP).
+2025-12-06 11:02:45,343 - INFO - Đang tải model từ: results/train_results/transfer_brain.pkl
+2025-12-06 11:02:45,361 - INFO - TARGET MODE: Epsilon đặt lại là 0.3 để fine-tune.
+2025-12-06 11:02:45,364 - INFO - --- Bắt đầu 1000 episodes ---
+2025-12-06 11:02:56,167 - INFO - Episode 10: Avg Reward(10ep): 1.41 | Successes(10ep): 0
+2025-12-06 11:03:06,693 - INFO - Episode 20: Avg Reward(10ep): 2.33 | Successes(10ep): 0
+2025-12-06 11:03:17,063 - INFO - Episode 30: Avg Reward(10ep): 3.70 | Successes(10ep): 0
+2025-12-06 11:03:27,312 - INFO - Episode 40: Avg Reward(10ep): 1.63 | Successes(10ep): 0
+2025-12-06 11:03:37,531 - INFO - Episode 50: Avg Reward(10ep): -7.54 | Successes(10ep): 0
+2025-12-06 11:03:47,926 - INFO - Episode 60: Avg Reward(10ep): -3.18 | Successes(10ep): 0
+2025-12-06 11:03:58,281 - INFO - Episode 70: Avg Reward(10ep): 1.66 | Successes(10ep): 0
+2025-12-06 11:04:08,774 - INFO - Episode 80: Avg Reward(10ep): 5.37 | Successes(10ep): 0
+2025-12-06 11:04:18,957 - INFO - Episode 90: Avg Reward(10ep): 4.56 | Successes(10ep): 0
+2025-12-06 11:04:29,211 - INFO - Episode 100: Avg Reward(10ep): -2.45 | Successes(10ep): 0
+2025-12-06 11:04:39,351 - INFO - Episode 110: Avg Reward(10ep): 5.42 | Successes(10ep): 0
+2025-12-06 11:04:49,669 - INFO - Episode 120: Avg Reward(10ep): -1.78 | Successes(10ep): 0
+2025-12-06 11:04:59,981 - INFO - Episode 130: Avg Reward(10ep): 1.15 | Successes(10ep): 0
+2025-12-06 11:05:10,432 - INFO - Episode 140: Avg Reward(10ep): 5.68 | Successes(10ep): 0
+2025-12-06 11:05:20,604 - INFO - Episode 150: Avg Reward(10ep): 4.00 | Successes(10ep): 0
+2025-12-06 11:05:30,946 - INFO - Episode 160: Avg Reward(10ep): 0.98 | Successes(10ep): 0
+2025-12-06 11:05:41,294 - INFO - Episode 170: Avg Reward(10ep): 5.26 | Successes(10ep): 0
+2025-12-06 11:05:51,484 - INFO - Episode 180: Avg Reward(10ep): 4.79 | Successes(10ep): 0
+2025-12-06 11:06:01,690 - INFO - Episode 190: Avg Reward(10ep): 3.82 | Successes(10ep): 0
+2025-12-06 11:06:12,232 - INFO - Episode 200: Avg Reward(10ep): -0.64 | Successes(10ep): 0
+2025-12-06 11:06:22,634 - INFO - Episode 210: Avg Reward(10ep): 7.59 | Successes(10ep): 0
+2025-12-06 11:06:33,033 - INFO - Episode 220: Avg Reward(10ep): 1.46 | Successes(10ep): 0
+2025-12-06 11:06:43,396 - INFO - Episode 230: Avg Reward(10ep): 3.65 | Successes(10ep): 0
+2025-12-06 11:06:53,730 - INFO - Episode 240: Avg Reward(10ep): 4.37 | Successes(10ep): 0
+2025-12-06 11:07:04,196 - INFO - Episode 250: Avg Reward(10ep): 3.81 | Successes(10ep): 0
+2025-12-06 11:07:14,514 - INFO - Episode 260: Avg Reward(10ep): 3.37 | Successes(10ep): 0
+2025-12-06 11:07:24,810 - INFO - Episode 270: Avg Reward(10ep): 4.86 | Successes(10ep): 0
+2025-12-06 11:07:34,975 - INFO - Episode 280: Avg Reward(10ep): 3.17 | Successes(10ep): 0
+2025-12-06 11:07:45,251 - INFO - Episode 290: Avg Reward(10ep): 3.58 | Successes(10ep): 0
+2025-12-06 11:07:55,591 - INFO - Episode 300: Avg Reward(10ep): 7.02 | Successes(10ep): 0
+2025-12-06 11:08:05,809 - INFO - Episode 310: Avg Reward(10ep): 8.49 | Successes(10ep): 0
+2025-12-06 11:08:16,341 - INFO - Episode 320: Avg Reward(10ep): 3.81 | Successes(10ep): 0
+2025-12-06 11:08:26,730 - INFO - Episode 330: Avg Reward(10ep): 7.12 | Successes(10ep): 0
+2025-12-06 11:08:37,241 - INFO - Episode 340: Avg Reward(10ep): 8.97 | Successes(10ep): 0
