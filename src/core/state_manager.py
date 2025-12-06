@@ -54,12 +54,11 @@ class StateManager:
             consecutive_nulls = 0
         null_feature = min(consecutive_nulls / 10.0, 1.0)
         
-        # Action One-hot
         last_action_vec = [0.0] * 6
         if 0 <= self.last_action_type <= 5:
             last_action_vec[self.last_action_type] = 1.0
 
-        # MỚI: Tiến độ thời gian (Quan trọng)
+        # Feature quan trọng còn thiếu trong code cũ:
         step_feature = min(self.step_count / 20.0, 1.0)
 
         return tuple([
@@ -67,5 +66,5 @@ class StateManager:
             has_structure,
             has_from,
             null_feature,
-            step_feature # <-- Đừng quên cái này
+            step_feature 
         ] + last_action_vec)

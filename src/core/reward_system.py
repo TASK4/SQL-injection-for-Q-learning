@@ -3,7 +3,7 @@ import numpy as np
 class RewardSystem:
     def __init__(self, normal_count, success_marker, error_marker, env_type='training'):
         self.env_type = env_type
-        # KHUNG SƯỜN: Agent phải đi theo thứ tự này
+        # KHUNG SƯỜN: Agent phải đi theo thứ tự này mới được điểm
         self.skeleton_flow = ["A'))", "UNION", "SELECT", "FROM", "USERS", "--"]
         
     def calculate_reward(self, response, payload):
@@ -15,35 +15,35 @@ class RewardSystem:
         
         # --- GIAI ĐOẠN 1: XẾP KHUNG (Structure) ---
         
-        # 1. Mở đầu: a')) -> THƯỞNG NGAY LẬP TỨC
+        # 1. Mở đầu: a')) -> THƯỞNG NGAY LẬP TỨC (+0.5) thay vì bị phạt
         if s_payload.startswith("A'))"):
-            current_reward += 0.5 # [Chai 1]
+            current_reward += 0.5 
             
             # 2. Nối tiếp: UNION
             if "A'))UNION" in s_payload: 
-                current_reward += 1.0 # [Chai 2]
+                current_reward += 1.0 
                 
                 # 3. Nối tiếp: SELECT
                 if "UNIONSELECT" in s_payload:
-                    current_reward += 1.5 # [Chai 3]
+                    current_reward += 1.5 
                     
                     # --- GIAI ĐOẠN 2: DÒ CỘT (Transfer Learning) ---
                     if "FROM" in s_payload:
                         # Đã đóng khung -> Kiểm tra kết quả
-                        current_reward += 2.0 # [Chai 4]
+                        current_reward += 2.0 
                         
                         # Logic phản hồi thực tế
                         if response.status_code == 200 and "SQLITE_ERROR" not in response.text:
                              current_reward += 20.0 # WIN
                              done = True
                         elif "COLUMN_MISMATCH" in response.text:
-                             # Sai số lượng cột -> Phạt NHẸ để nó chỉnh số lượng NULL
+                             # Sai số lượng cột -> Phạt RẤT NHẸ (-0.2) để nó chỉnh lại
                              current_reward -= 0.2 
                         else:
                              current_reward -= 1.0
                     else:
-                        # Chưa có FROM -> Đang thêm NULL
-                        # Cứ thêm 1 cái NULL hoặc dấu phẩy là được thưởng
+                        # Chưa có FROM -> Đang ở giai đoạn thêm NULL
+                        # Cứ thêm 1 cái NULL hoặc dấu phẩy là được thưởng thêm
                         if payload.strip().upper().endswith("NULL") or payload.strip().endswith(","):
                             current_reward += 0.2 
                             
@@ -52,11 +52,8 @@ class RewardSystem:
                             current_reward -= 0.5
 
         # --- GIAI ĐOẠN 3: PHẠT ---
-        # Phạt vòng lặp quá dài
         if len(payload) > 80:
             current_reward -= 1.0
-            
-        # Phạt cú pháp gãy
         if "SYNTAX_ERROR" in response.text:
              current_reward -= 0.5
 
