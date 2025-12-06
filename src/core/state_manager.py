@@ -3,7 +3,6 @@ import numpy as np
 class StateManager:
     def __init__(self):
         self.current_state = ""
-        # Thêm biến đếm bước để Agent biết mình đang ở giai đoạn nào
         self.step_count = 0 
         self.last_action_type = 0 
 
@@ -16,7 +15,7 @@ class StateManager:
     def update_state(self, action_string, action_index):
         s_action = action_string.upper().strip()
         
-        # 1. Logic nối chuỗi (Giữ nguyên)
+        # Nối chuỗi
         if action_string.startswith(",") or action_string.startswith("--") or action_string.startswith(")"):
             self.current_state += action_string
         else:
@@ -25,7 +24,7 @@ class StateManager:
             else:
                 self.current_state += " " + action_string
 
-        # 2. Phân loại action (Giữ nguyên)
+        # Phân loại action
         if "A'))" in s_action: self.last_action_type = 1
         elif any(k in s_action for k in ["UNION", "SELECT", "FROM"]): self.last_action_type = 2
         elif s_action in ["ID", "EMAIL", "PASSWORD"]: self.last_action_type = 3
@@ -33,22 +32,17 @@ class StateManager:
         elif "," in s_action or "--" in s_action: self.last_action_type = 5
         else: self.last_action_type = 0
         
-        # Tăng bước đếm
         self.step_count += 1
-        
         return self.get_feature_vector()
 
     def get_feature_vector(self):
         s = self.current_state.upper()
         
-        # --- CẢI TIẾN FEATURE VECTOR ---
-        
-        # 1. Kiểm tra các mốc quan trọng (Checkpoints)
         has_entry = 1.0 if s.startswith("A'))") else 0.0
         has_structure = 1.0 if "UNION" in s and "SELECT" in s else 0.0
         has_from = 1.0 if "FROM" in s else 0.0
         
-        # 2. Đếm NULL (Giữ nguyên - Rất quan trọng cho Transfer Learning)
+        # Đếm NULL
         try:
             last_select_idx = s.rfind("SELECT")
             if last_select_idx != -1:
@@ -60,13 +54,12 @@ class StateManager:
             consecutive_nulls = 0
         null_feature = min(consecutive_nulls / 10.0, 1.0)
         
-        # 3. Action vừa đi (One-hot)
+        # Action One-hot
         last_action_vec = [0.0] * 6
         if 0 <= self.last_action_type <= 5:
             last_action_vec[self.last_action_type] = 1.0
 
-        # 4. THÊM MỚI: Tiến độ (Normalized Step Count)
-        # Giúp Agent biết "sắp hết giờ" để chốt đơn
+        # MỚI: Tiến độ thời gian (Quan trọng)
         step_feature = min(self.step_count / 20.0, 1.0)
 
         return tuple([
@@ -74,5 +67,5 @@ class StateManager:
             has_structure,
             has_from,
             null_feature,
-            step_feature # <-- Thêm feature này
+            step_feature # <-- Đừng quên cái này
         ] + last_action_vec)
